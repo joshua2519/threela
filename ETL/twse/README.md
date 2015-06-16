@@ -24,5 +24,29 @@
 			券商列表
 		</td>
 	</tr>
+	<tr>
+		<td>
+			ListCompany.ipynb
+		</td>
+		<td>
+			上市上櫃公司資料下載
+		</td>
+	</tr>
+	<tr>
+		<td>
+			listcompany.csv
+		</td>
+		<td>
+			上市公司資料
+		</td>
+	</tr>
+	<tr>
+		<td>
+			listcompanyOTC.csv
+		</td>
+		<td>
+			上櫃公司資料
+		</td>
+	</tr>
 </table>
 
