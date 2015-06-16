@@ -8,6 +8,7 @@ from selenium import webdriver
 import pyautogui
 import random
 import time
+import csv
 
 chromeOptions = webdriver.ChromeOptions()
 prefs = {"download.default_directory" : "C:\Temp","download.prompt_for_download": False}
