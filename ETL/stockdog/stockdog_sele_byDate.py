@@ -43,7 +43,7 @@ driver= webdriver.Firefox(firefox_profile=fp)
 driver.implicitly_wait(30)
 driver.get("https://www.stockdog.com.tw/")
 driver.find_element_by_name("adgh4r23").clear()
-driver.find_element_by_name("adgh4r23").send_keys("iii101")
+driver.find_element_by_name("adgh4r23").send_keys("zb101")
 driver.find_element_by_name("fsdfy452d").clear()
 driver.find_element_by_name("fsdfy452d").send_keys("123456")
 #輸入驗證碼
@@ -54,7 +54,7 @@ driver.find_element_by_css_selector("#next > button.btn.btn-primary").click()
 
 filepath=r"C:/Program Files (x86)/Google/Chrome/Application/43.0.2357.124/"
 #設定日期區間
-datelist=["2015-05-21"]
+datelist=["2015-05-20"]
 
 for line in datelist :
     date=line.strip()
@@ -87,7 +87,7 @@ for line in datelist :
             pyautogui.press('tab')
             pyautogui.press('tab')
             pyautogui.press('enter')
-            time.sleep(random.randrange(10,15))
+            time.sleep(random.randrange(40,60))
 
 
 # In[ ]:
