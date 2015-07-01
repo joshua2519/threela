@@ -52,10 +52,10 @@ driver.find_element_by_name("captcha").clear()
 driver.find_element_by_name("captcha").send_keys(cat)
 driver.find_element_by_css_selector("#next > button.btn.btn-primary").click()
 
-filepath=r"C:/Program Files (x86)/Google/Chrome/Application/43.0.2357.124/"
+filepath=r"C:/Program Files (x86)/Google/Chrome/Application/43.0.2357.130/"
 #設定日期區間
 datelist=["2015-05-20"]
-
+count=0
 for line in datelist :
     date=line.strip()
     with open('topComList.csv', 'rb') as csvfile:
@@ -87,7 +87,17 @@ for line in datelist :
             pyautogui.press('tab')
             pyautogui.press('tab')
             pyautogui.press('enter')
-            time.sleep(random.randrange(40,60))
+            time.sleep(random.randrange(30,50))
+            count+=1
+            p=random.randrange(1,12)
+            driver.get('https://www.stockdog.com.tw/stockdog/index.php?m=7&p='+str(p))
+            time.sleep(5)
+            p=random.randrange(1,3)
+            driver.get('https://www.stockdog.com.tw/stockdog/index.php?m=13&p='+str(p))
+            time.sleep(5)
+            if count==30:
+                count=0
+                time.sleep(random.randrange(900,1800))
 
 
 # In[ ]:
