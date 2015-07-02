@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS `threela`.`company` (
   `Lat` DECIMAL(10,6) NULL COMMENT '緯度',
   `Lon` DECIMAL(10,6) NULL COMMENT '經度',
   `geom` GEOMETRY NULL COMMENT 'location',
+  `CountyId` INT NULL COMMENT '縣市代號',
+  `TownId` INT NULL COMMENT '鄉鎮市區代號',
   PRIMARY KEY (`StockId`)  COMMENT '股票代號')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -91,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `threela`.`brokers` (
   `Name` NVARCHAR(100) NOT NULL COMMENT '券商名稱',
   `Address` NVARCHAR(255) NULL COMMENT '地址',
   `Phone` VARCHAR(50) NULL COMMENT '電話',  
-  `CountyId` VARCHAR(10) NULL COMMENT '縣市代號',
-  `TownId` VARCHAR(10) NULL COMMENT '鄉鎮市區代號',
+  `CountyId` INT NULL COMMENT '縣市代號',
+  `TownId` INT NULL COMMENT '鄉鎮市區代號',
   `Lat` DECIMAL(10,6) NULL COMMENT '緯度',
   `Lon` DECIMAL(10,6) NULL COMMENT '經度',
   `HeadId` VARCHAR(10) NOT NULL COMMENT '總公司Id',
