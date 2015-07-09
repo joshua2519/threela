@@ -158,6 +158,20 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `threela`.`daily_tmp` (
+  `Id` bigint not null  AUTO_INCREMENT comment '',
+  `StockId` VARCHAR(10) NOT NULL COMMENT '股票代號',
+  `BrokerId` VARCHAR(10) BINARY NOT NULL COMMENT '券商公司代號',
+  `TimeId` int NOT NULL COMMENT '日期代號',
+  `Buy` INT NULL COMMENT '買入張數',
+  `Sell` INT NULL COMMENT '賣出張數',
+  `BuyPrice` DOUBLE NULL COMMENT '買入平均價格',
+  `SellPrice` DOUBLE NULL COMMENT '賣出平均價格',
+  PRIMARY KEY (`Id`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 -- 日期表格
 
 CREATE table if not exists `threela`.`Time` (
@@ -167,6 +181,7 @@ CREATE table if not exists `threela`.`Time` (
     `Day` INT NOT NULL COMMENT '日',
     `Week` INT NOT NULL COMMENT '星期',
     `WeekOfYear` INT NOT NULL COMMENT '每年的第幾周',
+    `WeekofMonth` INT NOT NULL COMMENT '每月的第幾周',
     `Date` Date not null COMMENT '',
     PRIMARY KEY (`TimeId`)  COMMENT '')
 ENGINE = InnoDB
