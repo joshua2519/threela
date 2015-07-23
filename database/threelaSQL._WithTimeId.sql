@@ -177,12 +177,14 @@ COLLATE = utf8_unicode_ci;
 CREATE table if not exists `threela`.`Time` (
 	`TimeId` INT NOT NULL COMMENT '日期代號',
     `Year` INT Not NULL COMMENT '年',
+    `Season` INT Not NULL COMMENT '季',
 	`Month` INT Not NULL COMMENT '月',
     `Day` INT NOT NULL COMMENT '日',
     `Week` INT NOT NULL COMMENT '星期',
     `WeekOfYear` INT NOT NULL COMMENT '每年的第幾周',
     `WeekofMonth` INT NOT NULL COMMENT '每月的第幾周',
     `Date` Date not null COMMENT '',
+    `TWSEOPEN` boolean not null COMMENT '是否開市',
     PRIMARY KEY (`TimeId`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
