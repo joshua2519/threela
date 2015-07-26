@@ -113,11 +113,11 @@ window.onload = function(){
 	window.myBar = new Chart(chart2).Bar(barChartData, {
 		responsive : true
 	});
-	var chart3 = document.getElementById("doughnut-chart").getContext("2d");
-	window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {responsive : true
-	});
-	var chart4 = document.getElementById("pie-chart").getContext("2d");
-	window.myPie = new Chart(chart4).Pie(pieData, {responsive : true
-	});
+	// var chart3 = document.getElementById("doughnut-chart").getContext("2d");
+	// window.myDoughnut = new Chart(chart3).Doughnut(doughnutData, {responsive : true
+	// });
+	// var chart4 = document.getElementById("pie-chart").getContext("2d");
+	// window.myPie = new Chart(chart4).Pie(pieData, {responsive : true
+	// });
 	
 };

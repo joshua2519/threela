@@ -40,7 +40,7 @@ $(function () {
             },
 
             title: {
-                text: 'AAPL Historical'
+                text: 'Stock Historical'
             },
 
             yAxis: [{
@@ -49,9 +49,9 @@ $(function () {
                     x: -3
                 },
                 title: {
-                    text: 'K-line'
+                    text: '大盤指數'
                 },
-                height: '95%',
+                height: '60%',
                 lineWidth: 2
             }, {
                 labels: {
@@ -59,7 +59,7 @@ $(function () {
                     x: -3
                 },
                 title: {
-                    text: ''
+                    text: '股票數量'
                 },
                 top: '65%',
                 height: '35%',
@@ -68,9 +68,21 @@ $(function () {
             }],
 
             series: [{
+                
                 type: 'candlestick',
-                name: 'AAPL',
+                upColor:'#FF0000',
+                color:'#008800',
+                name: '股票',
                 data: ohlc,
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            },{
+                type: 'column',
+                
+                name: '買賣數量',
+                data: volume,
+                yAxis: 1,
                 dataGrouping: {
                     units: groupingUnits
                 }
