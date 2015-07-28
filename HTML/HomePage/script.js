@@ -1,5 +1,10 @@
 /* global d3, _ */
 
+ function getValue() {
+    var name = document.getElementById("stockCode").value;
+    document.getElementById("stockName").innerHTML = name;
+}
+
 (function() {
   var margin = {top: 30, right: 20, bottom: 100, left: 50},
     margin2  = {top: 210, right: 20, bottom: 20, left: 50},
@@ -282,5 +287,7 @@
 	  average : +d.Average,
     }
   }
+
  
 }());
+
