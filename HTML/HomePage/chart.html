@@ -14,6 +14,8 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <!-- D3.js Styles -->
+   <link rel=stylesheet href="/assets/style.css" type="text/css" media=screen>
 </head>
 <body>
     <div id="wrapper">
@@ -39,16 +41,29 @@
 					<li>
                         <a href="chart.html" class="active-menu"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
+					<li>
+                        <a href="counter.html"><i class="fa fa-table"></i> 籌碼面分析</a>
+                    </li>
+					<li>
+                        <a href="fundamentals.html"><i class="fa fa-edit"></i> 基本面分析</a>
+                    </li>
                 </ul>
             </div>
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
+				<div class="row">
+                    <div class="col-md-12">
+                        <input type="text" placeholder="Enter Stock Code Here" id="stockCode" />
+            
+						<button type="button"  onClick="getValue()">Go</button>
+                    </div>
+                </div> 
 			     <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header">
-                            2330 (台積電)
+                        <h1 class="page-header" id="stockName" >
+						1101	台泥
                         </h1>
                     </div>
                 </div> 
@@ -81,7 +96,19 @@
                         </div>  
                     </div>      
                 </div> 
-
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                D3 Chart
+                            </div>
+                            <div class="panel-body">
+                                <div id="chart1"></div>
+                            </div>
+                    
+                        </div>  
+                    </div>      
+                </div> 
                  <!-- /. ROW  -->
 				 <footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
 			</div>
@@ -105,7 +132,10 @@
     
     <script src="http://code.highcharts.com/stock/highstock.js"></script>
     <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+	<script src='http://d3js.org/d3.v3.min.js' charset="utf-8"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
+	
     <script src="test1.js"></script>
-   
+    <script src="script.js"></script>
 </body>
 </html>
