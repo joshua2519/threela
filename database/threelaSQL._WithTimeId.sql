@@ -238,6 +238,26 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+CREATE table if not exists `threela`.`FundmentalRaw` (
+	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
+    `TimeId` INT NOT NULL COMMENT '日期代號',
+	`Diff` INT Not NULL COMMENT '計算區間',
+    `YieldRate` DOUBLE NULL COMMENT '殖利率',
+    `PE` DOUBLE NULL COMMENT '本益比',
+    `PBR` Double NOT NULL COMMENT '股價淨值比',
+    `EPS` DOUBLE NULL COMMENT '每股盈餘',
+	`DebtRatio` DOUBLE NULL COMMENT '負債比例',
+    `ROE` double NULL COMMENT '股東權益報',
+    `MonthRate` double NOT NULL COMMENT '月增率',
+    `YearRate` double NOT NULL COMMENT '月增率',
+    `growRate` double NOT NULL COMMENT '個股成長率-大盤成長率',
+    `growClass` varchar(50) NOT NULL COMMENT '成長率分類',
+    PRIMARY KEY (`StockId`,`TimeId`,`Diff`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
