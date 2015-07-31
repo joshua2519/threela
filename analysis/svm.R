@@ -24,6 +24,14 @@ train.90$Diff = factor(train.90$Diff)
 train.90$growClass = factor(train.90$growClass)
 train.90$TimeId= as.Date(as.character(train.90$TimeId),format="%Y%m%d")
 
+#diff=180day
+rs= dbSendQuery(mydb, "select * from threela.fundmentalraw where timeid < 20101231 and diff=180")
+train.180=fetch(rs, n=-1)
+train.180$StockId = factor(train.180$StockId)
+train.180$Diff = factor(train.180$Diff)
+train.180$growClass = factor(train.180$growClass)
+train.180$TimeId= as.Date(as.character(train.180$TimeId),format="%Y%m%d")
+
 #rpart test
 train=train.90
 train.subset=subset(train,select=c(YieldRate,PE,PBR,EPS,DebtRatio,ROE,MonthRate,YearRate,growClass))
