@@ -1,4 +1,5 @@
 $(function () {
+    
     $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function (data) {
 
         //修改colum条的颜色

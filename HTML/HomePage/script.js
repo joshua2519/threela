@@ -8,10 +8,11 @@
 (function() {
   var margin = {top: 30, right: 20, bottom: 100, left: 50},
     margin2  = {top: 210, right: 20, bottom: 20, left: 50},
-    width    = 1000 - margin.left - margin.right,
+	width = parseInt(d3.select('#chart1').style('width'), 10),
+    width    = width - margin.left - margin.right,
     height   = 300 - margin.top - margin.bottom,
     height2  = 300 - margin2.top - margin2.bottom;
-
+	
   var parseDate = d3.time.format('%d/%m/%Y').parse,
     bisectDate = d3.bisector(function(d) { return d.date; }).left,
     legendFormat = d3.time.format('%b %d, %Y');
@@ -290,4 +291,5 @@
 
  
 }());
+
 
