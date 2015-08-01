@@ -28,6 +28,13 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.html"><i class="fa fa-comments"></i> <strong>CoCo - $tock </strong></a>
+                <div class="nav navbar-top-links navbar-right">
+                 
+                    <input type="button" value="基本面推薦" id="hideMsg" style="border-style:none;background-color:transparent;height:50px;width:160px;font-size:20px">
+                    
+                    <input type="button" value="籌碼面推薦" id="hideMsg1" style="border-style:none;background-color:transparent;height:50px;width:160px;font-size:20px">
+                    
+                </div>
             </div>
 
         </nav>
@@ -42,11 +49,9 @@
                         <a href="chart.html" class="active-menu"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
 					<li>
-                        <a href="counter.html"><i class="fa fa-table"></i> 籌碼面分析</a>
+                        <a href="map.html"><i class="fa fa-table"></i> 地圖分析</a>
                     </li>
-					<li>
-                        <a href="fundamentals.html"><i class="fa fa-edit"></i> 基本面分析</a>
-                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -63,8 +68,34 @@
 			     <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header" id="stockName" >
-						1101	台泥
+						1101-台泥
                         </h1>
+                        <table id="message" style = "display:none;" onClick="changeValue()">
+                            <tr>
+                            <td>
+                            <ul>
+                                <li style="font-size:20px;"><a id="message1">3133-瓜瓜</a></li>
+                                <li style="font-size:20px;"><a id="message2">1476-儒鴻</a></li>
+                                <li style="font-size:20px;"><a id="message3">9521-興大</a></li>
+                            </ul>
+                            </td>
+                            <td>
+                            <ul>
+                                <li style="font-size:20px;"><a id="message4">4444-宏達電</a></li>
+                                <li style="font-size:20px;"><a id="message5">1456-遠東紡</a></li>
+                                <li style="font-size:20px;"><a id="message6">9921-巨大</a></li>
+                            </ul>
+                            </td>
+                            <td>
+                            <ul>
+                                <li style="font-size:20px;"><a id="message7">5890-彰銀</a></li>
+                                <li style="font-size:20px;"><a id="message8">1314-碩名</a></li>
+                                <li style="font-size:20px;"><a id="message9">1101-台泥</a></li>
+                                <li style="font-size:20px;"><a id="message10">0050-台灣50</a></li>
+                            </ul>
+                            </td>
+                            </tr>
+                        </table>
                     </div>
                 </div> 
                  <!-- /. ROW  -->
@@ -137,5 +168,7 @@
 	
     <script src="test1.js"></script>
     <script src="script.js"></script>
+    <script src="hideValue.js"></script>
+    <script src="changeValues.js"></script>
 </body>
 </html>

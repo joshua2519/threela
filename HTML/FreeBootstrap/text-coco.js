@@ -1,6 +1,32 @@
 $(function () {
     $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function (data) {
 
+        //修改colum条的颜色
+        var originalDrawPoints = Highcharts.seriesTypes.column.prototype.drawPoints;  
+        Highcharts.seriesTypes.column.prototype.drawPoints = function () {  
+            var merge  = Highcharts.merge,  
+                series = this,  
+                chart  = this.chart,  
+                points = series.points,  
+                i      = points.length;  
+              
+            while (i--) {  
+                var candlePoint = chart.series[0].points[i];  
+                if(candlePoint.open != undefined && candlePoint.close !=  undefined){  //如果是K线图 改变矩形条颜色，否则不变  
+                    var color = (candlePoint.open < candlePoint.close) ? '#DD2200' : '#33AA22';  
+                    var seriesPointAttr = merge(series.pointAttr);  
+                    seriesPointAttr[''].fill = color;  
+                    seriesPointAttr.hover.fill = Highcharts.Color(color).brighten(0.3).get();  
+                    seriesPointAttr.select.fill = color;  
+                }else{  
+                    var seriesPointAttr = merge(series.pointAttr);  
+                }  
+                  
+                points[i].pointAttr = seriesPointAttr;  
+            }  
+      
+            originalDrawPoints.call(this);  
+        } 
         // split the data set into ohlc and volume
         var ohlc = [],
             volume = [],
