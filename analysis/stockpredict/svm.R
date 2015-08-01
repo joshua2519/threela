@@ -56,6 +56,14 @@ vd.180$Diff = factor(vd.180$Diff)
 vd.180$growClass = factor(vd.180$growClass)
 vd.180$TimeId= as.Date(as.character(vd.180$TimeId),format="%Y%m%d")
 
+#svm model
+train.30.attr=subset(train.30,select=c(YieldRate,PE,PBR,EPS,DebtRatio,ROE,MonthRate,YearRate,growClass))
+train.90.attr=subset(train.90,select=c(YieldRate,PE,PBR,EPS,DebtRatio,ROE,MonthRate,YearRate,growClass))
+train.180.attr=subset(train.180,select=c(YieldRate,PE,PBR,EPS,DebtRatio,ROE,MonthRate,YearRate,growClass))
+model.30=svm(growClass ~ .,data=train.30.attr)
+model.90=svm(growClass ~ .,data=train.90.attr)
+model.180=svm(growClass ~ .,data=train.180.attr)
+
 #rpart test
 train=train.90
 train.subset=subset(train,select=c(YieldRate,PE,PBR,EPS,DebtRatio,ROE,MonthRate,YearRate,growClass))
