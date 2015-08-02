@@ -50,8 +50,8 @@ h4 {
     padding-top:10px;
 }
 .square-btn-adjust {
-    border: 0px solid transparent; 
-   -webkit-border-radius: 0px;
+border: 0px solid transparent; 
+-webkit-border-radius: 0px;
 -moz-border-radius: 0px;
 border-radius: 0px;
 
@@ -167,7 +167,7 @@ color: #2B2E33;
 background-color: #fff;
 }
 .panel-right h3{  
-font-size: 40px;
+font-size: 60px;
 padding: 18px 10px 13px;
 color: #8A8A8A;
 }

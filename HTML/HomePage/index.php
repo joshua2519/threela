@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -17,7 +17,23 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
+<!-- Connecting to MySQL -->
+<?php
+    $con = mysql_connect("10.120.30.4","threela","123456");
 
+    if (!$con) {
+        die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db("threela", $con);
+
+    $result = mysql_query("
+    select T.TimeId, T.Date ,I.ClosePrice, I.TAPI, T.TWSEOPEN 
+    from `index` as I JOIN time as T on (I.TimeId = T.TimeId)
+    where T.Date<= now() order by T.TimeId desc
+    limit 0 ,1;")
+
+?>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -28,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-comments"></i> <strong>CoCo - $tock </strong></a>
+                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>CoCo - $tock </strong></a>
 
             </div>
         </nav>
@@ -39,36 +55,24 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> 大盤資訊</a>
+                        <a class="active-menu" href="index.php"><i class="fa fa-dashboard"></i> 大盤資訊</a>
                     </li>
                    
 					<li>
-                        <a href="chart.html"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
+                        <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
 					<li>
-                        <a href="map.html"><i class="fa fa-table"></i> 地圖分析</a>
+                        <a href="map.php"><i class="fa fa-table"></i> 地圖分析</a>
                     </li>
-					<!-- 
-                    <li>
-                        <a href="fundamentals.html"><i class="fa fa-edit"></i> 基本面分析</a>
-                    </li> -->
-                    
-                    <!-- <li>
-                        <a href="table.html"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                    <li>
-                        <a href="form.html"><i class="fa fa-edit"></i> Forms </a>
-                    </li> -->
-
-                    <!-- <li>
-                        <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
-                    </li> -->
                 </ul>
 
             </div>
 
         </nav>
         <!-- /. NAV SIDE  -->
+        <?php
+        $row = mysql_fetch_row($result);
+        ?>
         <div id="page-wrapper">
             <div id="page-inner">
 
@@ -90,32 +94,32 @@
                 <!-- /. ROW  -->
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-green green">
-                            <div class="panel-left pull-left green">
+                    <!-- <div class="col-md-3 col-sm-12 col-xs-12"> -->
+                        <div class="panel panel-primary text-center no-boder bg-color-red red">
+                            <div class="panel-left pull-left red">
                                 <i class="fa fa-bar-chart-o fa-5x"></i>
                                 
                             </div>
                             <div class="panel-right pull-right">
-								<h3>8,767.86</h3>
+								<h3><?php echo $row[2] ?></h3>
                                <strong> 加權指數</strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
+                    <!-- </div> -->
+                    
                         <div class="panel panel-primary text-center no-boder bg-color-blue blue">
                               <div class="panel-left pull-left blue">
                                 <i class="fa fa-shopping-cart fa-5x"></i>
 								</div>
                                 
                             <div class="panel-right pull-right">
-							<h3>765.35 (億) </h3>
+							<h3><?php echo $row[3] ?>(億) </h3>
                                <strong> 成交金額</strong>
 
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
+                    
+                    <!-- <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder bg-color-red red">
                             <div class="panel-left pull-left red">
                                 <i class="fa fa fa-comments fa-5x"></i>
@@ -140,7 +144,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             <div class="row">
                 <div class="col-md-12">
