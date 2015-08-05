@@ -61,8 +61,15 @@
 					<li>
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
+                    <li>
+                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面分析</a>
+                    </li>
+               
+                    <li>
+                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面分析</a>
+                    </li>
 					<li>
-                        <a href="map.php"><i class="fa fa-table"></i> 地圖分析</a>
+                        <a href="map.php"><i class="fa fa-file"></i> 地圖分析</a>
                     </li>
                 </ul>
 
