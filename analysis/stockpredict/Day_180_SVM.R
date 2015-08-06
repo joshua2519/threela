@@ -62,13 +62,15 @@ confusionMatrix(table(predict.sea.filter.180.type,vd.sea.180.class))
 
 #training model--with type-2 and tune
 
-model.sea.filter.180.type.tune=svm(growClass ~YieldRate+PE+PBR+EPS+DebtRatio+ROE+MonthRate+YearRate,data=train.sea.filter.180,type='nu-classification',cost=16,gamma=0.0625)
+model.sea.filter.180.type.tune=svm(growClass ~YieldRate+PE+PBR+EPS+DebtRatio+ROE+MonthRate+YearRate,data=train.sea.filter.180,type='nu-classification',cost=16,gamma=0.07)
 
 ##predict model
 predict.sea.filter.180.type.tune=predict(model.sea.filter.180.type.tune,vd.sea.180.attr)
 
 ##check accuracy
 table(predict.sea.filter.180.type.tune,vd.sea.180.class)
+
+
 confusionMatrix(table(predict.sea.filter.180.type.tune,vd.sea.180.class))
 
 
