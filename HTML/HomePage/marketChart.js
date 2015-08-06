@@ -1,8 +1,8 @@
 
 
     $(function () {
-        
-        $.getJSON('makeForPhp.php?enterId='+stockid, function (data) {
+        //大盤
+        $.getJSON('marketChart.php', function (data) {
 
             //修改colum条的颜色
             var originalDrawPoints = Highcharts.seriesTypes.column.prototype.drawPoints;  
@@ -37,13 +37,8 @@
                 volume = [],
                 dataLength = data.length,
                 // set the allowed units for data grouping
-                groupingUnits = [[
-                    'week',                         // unit name
-                    [1]                             // allowed multiples
-                ], [
-                    'month',
-                    [1, 2, 3, 4, 6]
-                ]],
+                groupingUnits = [ ['day',[1]]
+                ],
 
                 i = 0;
 
@@ -64,10 +59,22 @@
 
 
             // create the chart
-            $('#test_coco').highcharts('StockChart', {
+            $('#marketChart').highcharts('StockChart', {
+                chart:{backgroundColor:'#aaa'},
+                 tooltip:{
+                style: {
+                color: '#333333',
+                fontSize: '12px',
+                padding: '18px',
+                opacity:0.5,
+                backgroundColor:'#aaa'
+                },
+                borderColor: '',
+                borderWidth: 0
 
+                },
                 rangeSelector: {
-                    selected: 1
+                    selected: 2
                 },
 
                 title: {
@@ -80,9 +87,9 @@
                         x: -3
                     },
                     title: {
-                        text: '該股指數'
+                        text: '指數'
                     },
-                    height: '60%',
+                    height: '80%',
                     lineWidth: 2
                 }, {
                     labels: {
@@ -90,10 +97,10 @@
                         x: -3
                     },
                     title: {
-                        text: '交易量'
+                        text: '成交量'
                     },
-                    top: '65%',
-                    height: '35%',
+                    top: '85%',
+                    height: '15%',
                     offset: 0,
                     lineWidth: 2
                 }],
@@ -103,7 +110,7 @@
                     type: 'candlestick',
                     upColor:'#FF0000',
                     color:'#008800',
-                    name: '股票',
+                    name: 'STD',
                     data: ohlc,
                     dataGrouping: {
                         units: groupingUnits
@@ -111,7 +118,7 @@
                 },{
                     type: 'column',
                     
-                    name: '買賣數量',
+                    name: 'VOL',
                     data: volume,
                     yAxis: 1,
                     dataGrouping: {

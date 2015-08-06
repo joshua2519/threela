@@ -9,7 +9,7 @@ http://creativecommons.org/licenses/by/3.0/
     COMMON  STYLES    
 ------------------------------------------------*/
 body {
-    font-family: 'Open Sans', sans-serif;
+  font-family:  Microsoft JhengHei;;
   background-color: #283643;
 }
 
@@ -142,6 +142,9 @@ border-radius: 0;
 padding-bottom: 9px;
 margin: 10px 0 20px;
 border-bottom: 1px solid transparent;
+font-size: 50px;
+font-family: Microsoft JhengHei;
+font-weight: bolder;
 }
 .panel-left{  
 width: 100px;
@@ -226,7 +229,7 @@ border-radius: 50px;
 .panel-primary{
 display:inline-block;
 margin-bottom: 30px;
-width:100%;
+/*width:100%;*/
 }
 .green {
 background-color: #1CC09F;
@@ -603,8 +606,9 @@ line-height: 1.428571429;
  @media(max-width:480px) {
 .page-header small {
 display: block;
-padding-top: 14px;
-font-size: 19px;
+padding-top: 15px;
+font-size: 30px;
+
 }
 .panel-left {
   width: 85px;

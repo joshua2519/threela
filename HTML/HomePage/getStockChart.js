@@ -1,3 +1,4 @@
+//個股的chart圖
 function GetStockPrice(stockid){
 
     $.getJSON('makeForPhp.php?enterId='+stockid, function (data) {
@@ -33,14 +34,12 @@ function GetStockPrice(stockid){
         // split the data set into ohlc and volume
         var ohlc = [],
             volume = [],
+            Ma5=[],Ma20=[],Ma60=[],UBand=[],LBand=[],
             dataLength = data.length,
             // set the allowed units for data grouping
             groupingUnits = [[
-                'week',                         // unit name
+                'day',                         // unit name
                 [1]                             // allowed multiples
-            ], [
-                'month',
-                [1, 2, 3, 4, 6]
             ]],
 
             i = 0;
@@ -58,14 +57,48 @@ function GetStockPrice(stockid){
                 data[i][0], // the date
                 data[i][5] // the volume
             ]);
+
+            Ma5.push([
+                data[i][0],
+                data[i][6]
+            ]);
+            Ma20.push([
+                data[i][0],
+                data[i][7]
+            ]);
+            Ma60.push([
+                data[i][0],
+                data[i][8]
+            ]);
+            UBand.push([
+                data[i][0],
+                data[i][9]
+            ]);
+            LBand.push([
+                data[i][0],
+                data[i][10]
+            ]);
         }
 
 
         // create the chart
         $('#test_coco').highcharts('StockChart', {
+            chart:{backgroundColor:'#aaa'},
+            tooltip:{
+                style: {
+                color: '#333333',
+                fontSize: '12px',
+                padding: '18px',
+                opacity:0.5,
+                backgroundColor:'#aaa'
+                },
+            borderColor: '',
+            borderWidth: 0
+
+            },
 
             rangeSelector: {
-                selected: 1
+                selected: 2
             },
 
             title: {
@@ -78,9 +111,9 @@ function GetStockPrice(stockid){
                     x: -3
                 },
                 title: {
-                    text: '該股指數'
+                    text: '股價'
                 },
-                height: '60%',
+                height: '70%',
                 lineWidth: 2
             }, {
                 labels: {
@@ -88,10 +121,10 @@ function GetStockPrice(stockid){
                     x: -3
                 },
                 title: {
-                    text: '交易量'
+                    text: '成交量'
                 },
-                top: '65%',
-                height: '35%',
+                top: '75%',
+                height: '25%',
                 offset: 0,
                 lineWidth: 2
             }],
@@ -101,7 +134,7 @@ function GetStockPrice(stockid){
                 type: 'candlestick',
                 upColor:'#FF0000',
                 color:'#008800',
-                name: '股票',
+                name: 'STK',
                 data: ohlc,
                 dataGrouping: {
                     units: groupingUnits
@@ -109,9 +142,45 @@ function GetStockPrice(stockid){
             },{
                 type: 'column',
                 
-                name: '買賣數量',
+                name: 'VOL',
                 data: volume,
                 yAxis: 1,
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            },{
+                type: 'line',
+                
+                name: 'MA5',
+                data: Ma5,
+                color:'yellow',
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            },{
+                type: 'line',
+                
+                name: 'MA60',
+                data: Ma60,
+                color:'purple',
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            },{
+                type: 'line',
+                
+                name: '+STD',
+                data: UBand,
+                color:'cyan',
+                dataGrouping: {
+                    units: groupingUnits
+                }
+            },{
+                type: 'line',
+                
+                name: '-STD',
+                data: LBand,
+                color:'cyan',
                 dataGrouping: {
                     units: groupingUnits
                 }

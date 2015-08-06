@@ -15,7 +15,8 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
+    
+    <link href="assets/css/price.css" rel="stylesheet" />
 </head>
 <!-- Connecting to MySQL -->
 <?php
@@ -30,7 +31,7 @@
     $result = mysql_query("
     select T.TimeId, T.Date ,I.ClosePrice, I.TAPI, T.TWSEOPEN 
     from `index` as I JOIN time as T on (I.TimeId = T.TimeId)
-    where T.Date<= now() order by T.TimeId desc
+    where T.Date <= now() order by T.TimeId desc
     limit 0 ,1;")
 
 ?>
@@ -50,7 +51,7 @@
         </nav>
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
-		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
@@ -80,106 +81,31 @@
         <?php
         $row = mysql_fetch_row($result);
         ?>
+        
         <div id="page-wrapper">
-            <div id="page-inner">
-
+            <div id="page-inner">  
 
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            股市大盤 <small>當前大盤趨勢</small>
+                            
+                            <strong> 加權指數：<?php echo $row[2] ?></strong>
+                            <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交金額：<?php echo $row[3] ?>(億) </strong>
                         </h1>
-						<!-- <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Library</a></li>
-                            <li class="active">Data</li>
-                        </ol> -->
+
+
                     </div>
                 </div>
-				
-				
-                <!-- /. ROW  -->
+ 
+                <div style="float:left;height:600px;width:1350px;">
+                    <div>
+                        <div id="marketChart" style="height:795px ;width:1590px;min-width: :310px"></div>
 
-                <div class="row">
-                    <!-- <div class="col-md-3 col-sm-12 col-xs-12"> -->
-                        <div class="panel panel-primary text-center no-boder bg-color-red red">
-                            <div class="panel-left pull-left red">
-                                <i class="fa fa-bar-chart-o fa-5x"></i>
-                                
-                            </div>
-                            <div class="panel-right pull-right">
-								<h3><?php echo $row[2] ?></h3>
-                               <strong> 加權指數</strong>
-                            </div>
-                        </div>
-                    <!-- </div> -->
-                    
-                        <div class="panel panel-primary text-center no-boder bg-color-blue blue">
-                              <div class="panel-left pull-left blue">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
-								</div>
-                                
-                            <div class="panel-right pull-right">
-							<h3><?php echo $row[3] ?>(億) </h3>
-                               <strong> 成交金額</strong>
-
-                            </div>
-                        </div>
-                    
-                    <!-- <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-red red">
-                            <div class="panel-left pull-left red">
-                                <i class="fa fa fa-comments fa-5x"></i>
-                               
-                            </div>
-                            <div class="panel-right pull-right">
-							 <h3>700,378 </h3>
-                               <strong> 成交筆數 </strong>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                        <div class="panel panel-primary text-center no-boder bg-color-brown brown">
-                            <div class="panel-left pull-left brown">
-                                <i class="fa fa-users fa-5x"></i>
-                                
-                            </div>
-                            <div class="panel-right pull-right">
-							<h3>4,390,131</h3>
-                             <strong>成交張數</strong>
-
-                            </div>
-                        </div>
-                    </div> -->
+                    </div>   
                 </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            HighChart
-                        </div>
-                        <div class="panel-body">
-        				<div id="test_coco" style="height:400px ;min-width: :310px"></div>
-                        </div>
-                    </div>
-                </div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							Line Chart
-						</div>
-						<div class="panel-body">
-							<div id="morris-line-chart"></div>
-						</div>
-                        
-					</div>  
-				</div>		
-			</div>
-                <!-- /. ROW  -->
-				<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+                
+                            
+
             </div>
             <!-- /. PAGE INNER  -->
         </div>
@@ -204,11 +130,11 @@
 	
 	
     <!-- Custom Js -->
-    <script src="assets/js/custom-scripts.js"></script>
+    <!--<script src="assets/js/custom-scripts.js"></script> -->
 
     <script src="http://code.highcharts.com/stock/highstock.js"></script>
     <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
-    <script src="text-coco.js"></script>
+    <script src="marketChart.js"></script>
     
 </body>
 
