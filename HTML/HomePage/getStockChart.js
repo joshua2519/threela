@@ -1,7 +1,5 @@
+function GetStockPrice(stockid){
 
-
-$(function () {
-    
     $.getJSON('makeForPhp.php?enterId='+stockid, function (data) {
 
         //修改colum条的颜色
@@ -120,4 +118,4 @@ $(function () {
             }]
         });
     });
-});
+}

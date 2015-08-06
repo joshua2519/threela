@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -44,17 +44,15 @@
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
                     <li>
-                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面分析</a>
+                        <a href="counter.php" class="active-menu"><i class="fa fa-table"></i> 籌碼面分析</a>
                     </li>
-               
+                 
                     <li>
                         <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面分析</a>
                     </li>
-                    
                     <li>
-                        <a href="map.php" class="active-menu"><i class="fa fa-file"></i> 地圖分析</a>
+                        <a href="map.php"><i class="fa fa-file"></i> 地圖分析</a>
                     </li>
-
                 </ul>
 
             </div>
@@ -62,20 +60,8 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Map
-                            </div>
-                            <div>
-                                地圖位置
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
+        
         </div>
            
     
