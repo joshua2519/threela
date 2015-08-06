@@ -1,6 +1,8 @@
+
+
 $(function () {
     
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function (data) {
+    $.getJSON('makeForPhp.php?enterId='+stockid, function (data) {
 
         //修改colum条的颜色
         var originalDrawPoints = Highcharts.seriesTypes.column.prototype.drawPoints;  
@@ -27,7 +29,9 @@ $(function () {
             }  
       
             originalDrawPoints.call(this);  
-        } 
+        }           
+        
+
         // split the data set into ohlc and volume
         var ohlc = [],
             volume = [],
@@ -76,7 +80,7 @@ $(function () {
                     x: -3
                 },
                 title: {
-                    text: '大盤指數'
+                    text: '該股指數'
                 },
                 height: '60%',
                 lineWidth: 2
@@ -86,7 +90,7 @@ $(function () {
                     x: -3
                 },
                 title: {
-                    text: '股票數量'
+                    text: '交易量'
                 },
                 top: '65%',
                 height: '35%',
