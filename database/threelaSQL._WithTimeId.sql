@@ -257,6 +257,48 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
+CREATE table if not exists `threela`.`FundmentalRawSeason` (
+	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
+    `TimeId` INT NOT NULL COMMENT '日期代號',
+	`Diff` INT Not NULL COMMENT '計算區間',
+    `YieldRate` DOUBLE NULL COMMENT '殖利率',
+    `PE` DOUBLE NULL COMMENT '本益比',
+    `PBR` Double NOT NULL COMMENT '股價淨值比',
+    `EPS` DOUBLE NULL COMMENT '每股盈餘',
+	`DebtRatio` DOUBLE NULL COMMENT '負債比例',
+    `ROE` double NULL COMMENT '股東權益報',
+    `MonthRate` double NOT NULL COMMENT '月增率',
+    `YearRate` double NOT NULL COMMENT '月增率',
+    `growRate` double NOT NULL COMMENT '個股成長率-大盤成長率',
+    `growClass` varchar(50) NOT NULL COMMENT '成長率分類',
+    PRIMARY KEY (`StockId`,`TimeId`,`Diff`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+CREATE table if not exists `threela`.`StockPredict` (
+	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
+    `TimeId` INT NOT NULL COMMENT '日期代號',
+	`Type` INT Not NULL COMMENT '預測類型:1=個股推薦，2=漲跌預測',
+    `Result` int not null comment 'if Type=1, Resutl=1 有推薦; if Type=2, Result=1 代表會漲，Result=-1代表會跌',    
+    PRIMARY KEY (`StockId`,`TimeId`,`Type`)  COMMENT '個股推薦與預測結果')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+CREATE table if not exists `threela`.`Transaction` (
+	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
+    `Cate` INT Not NULL COMMENT '0:做多, 1:放空',
+    `StartTimeId` INT NOT NULL COMMENT '開始日期代號',	
+    `StartPrice` double NULL COMMENT '買入或放空價格',
+    `EndTimeId` INT  NULL COMMENT '開始日期代號',	
+	`EndPrice` double NULL COMMENT '賣出或回補價格',
+    `ROI` double null comment '報酬率',    
+    PRIMARY KEY (`StockId`,`Cate`,`StartTimeId`)  COMMENT '籌碼面推薦分析')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

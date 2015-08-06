@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿<?php 
+$host="10.120.30.4";
+$port=3306;
+$socket="";
+$user="threela";
+$password="123456";
+$dbname="threela";
+
+$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+or die ('Could not connect to the database server' . mysqli_connect_error());
+$query = "SELECT case trans.Cate when 0 then '做多' when 1 then '放空' End as Type,trans.StockId,concat(trans.StockId,'-',com.SampleName) as stockname,st.date as startdate,trans.Startprice, et.Date as enddate,trans.endprice,trans.ROI   FROM threela.transaction as trans  join  company as com on trans.stockid=com.stockid  left join time as st on st.timeid=trans.Starttimeid left join time as et on et.timeid=trans.Endtimeid order by startdate desc,enddate desc";
+
+
+
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -44,14 +59,14 @@
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
                     <li>
-                        <a href="counter.php" class="active-menu"><i class="fa fa-table"></i> 籌碼面分析</a>
+                        <a href="counter.php" class="active-menu"><i class="fa fa-table"></i> 籌碼面推薦</a>
                     </li>
                  
                     <li>
-                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面分析</a>
+                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面推薦</a>
                     </li>
                     <li>
-                        <a href="map.php"><i class="fa fa-file"></i> 地圖分析</a>
+                        <a href="map.php"><i class="fa fa-file"></i> 籌碼地緣分析</a>
                     </li>
                 </ul>
 
@@ -60,9 +75,65 @@
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-          
+           
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                         <h1 class="page-header">
+                                                     個股進出場訊號 
+                        </h1>
+                            	
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                        	<th>類型</th>
+                                            <th>股票代號-名稱</th>
+                                            <th>進場日期</th>
+                                            <th>進場價格</th>
+                                            <th>出場日期</th>
+                                            <th>出場價格</th>
+                                            <th>投資報酬率</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php 
+                                    if ($stmt = $con->prepare($query)) {
+                                    	$stmt->execute();
+                                    	$stmt->bind_result($Type,$StockId, $stockname, $startdate, $Startprice, $enddate, $endprice, $ROI);
+                                    	while ($stmt->fetch()) {
+                                    		echo "<tr>";
+                                  			echo "<td>",$Type,'</td>';
+                                  			echo "<td><a href='chart.php?enterid=",$StockId,"'>",$stockname,'<a/></td>';
+                                  			echo "<td>",$startdate,'</td>';
+                                  			echo "<td>",$Startprice,'</td>';
+                                  			echo "<td>",$enddate,'</td>';
+                                  			echo "<td>",$endprice,'</td>';
+                                  			echo "<td>",$ROI,'</td>';
+                                  			echo "</tr>";                                    	
+                                    	}
+                                    	$stmt->close();
+                                    }
+                                    
+                                    
+                                    ?>                                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+           
         
         </div>
+           
            
     
 	</div>
@@ -89,3 +160,7 @@
    
 </body>
 </html>
+
+<?php 
+$con->close();  
+?>
