@@ -8,9 +8,7 @@ $dbname="threela";
 
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 or die ('Could not connect to the database server' . mysqli_connect_error());
-$query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Year,Season,individual_ROI,y_ROI,i_yROI  FROM threela.stockrecomd as sr join  company as com on sr.stockid=com.stockid  order by year desc,season";
-
-
+$query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Year,Season,individual_ROI,y_ROI,i_yROI  FROM threela.stockrecomd as sr join  company as com on sr.stockid=com.stockid where year= ? and season= ?  order by year desc,season";
 ?>
 
 <!DOCTYPE html>
@@ -81,11 +79,41 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
 					
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                	<h1 class="page-header">基本面選股</h1>   
-                            </div> 
+                                	<h1 class="page-header">基本面選股</h1>
+                                	   
+                            </div>
+                       
                             <div class="panel-body">
+                          		<div class="row">
+                            		<div class="col-lg-6">
+                            			<form role="form" method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                            				<div class="controls form-inline">
+                                            	 <label>年度: </label>
+                                            	<select id='year' name='year'>
+                                                	<option value='2015'  <?php if (isset($_POST['year']) and $_POST['year']==2015) {echo "selected='selected'"; } ?>>2015</option>
+                                                	<option  value='2014' <?php if (isset($_POST['year']) and $_POST['year']==2014) {echo "selected='selected'"; } ?>>2014</option>
+                                               	 	<option  value='2013' <?php if (isset($_POST['year']) and $_POST['year']==2013) {echo "selected='selected'"; } ?>>2013</option>
+                                                	<option  value='2012' <?php if (isset($_POST['year']) and $_POST['year']==2012) {echo "selected='selected'"; } ?>>2012</option>
+                                                	<option  value='2011' <?php if (isset($_POST['year']) and $_POST['year']==2011) {echo "selected='selected'"; } ?>>2011</option>
+                                                	<option  value='2010' <?php if (isset($_POST['year']) and $_POST['year']==2010) {echo "selected='selected'"; } ?>>2010</option>
+                                                	<option  value='2009' <?php if (isset($_POST['year']) and $_POST['year']==2009) {echo "selected='selected'"; } ?>>2009</option>
+                                                	<option  value='2008' <?php if (isset($_POST['year']) and $_POST['year']==2008) {echo "selected='selected'"; } ?>>2008</option>
+                                                	<option  value='2007' <?php if (isset($_POST['year']) and $_POST['year']==2007) {echo "selected='selected'"; } ?>>2007</option>
+                                            	</select>                                         	
+                                            	 <label> 季: </label>
+                                            	<select id='season' name='season'>
+                                                	<option value='1' <?php if (isset($_POST['season']) and $_POST['season']=='1') {echo "selected='selected'"; } ?>>1</option>
+                                                	<option value='3' <?php if (isset($_POST['season']) and $_POST['season']=='3') {echo "selected='selected'"; } ?>>3</option>                                             
+                                            	</select>
+                                            	<button type="submit" class="btn btn-default btn-lg">查詢</button>
+                                            	
+                                        	</div>
+                            			</form>
+                            		</div>
+                            	</div>
+                            	 
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="stockRecommdTable">
                                         <thead>
                                             <tr>
                                                 <th>股票代號-名稱</th>
@@ -97,8 +125,16 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           		<?php 
+                                           		<?php                                            		
 												if ($stmt = $con->prepare($query)) {
+													
+													if (isset($_POST["year"]) and isset($_POST["season"])){
+														$stmt->bind_param('ii', $_POST["year"], $_POST["season"]);
+													
+													}else{
+														$stmt->bind_param('ii', $first=2015,$second=1);
+													}
+																										
 													$stmt->execute();
 													$stmt->bind_result($Stockid, $stockname, $Year, $Season, $individual_ROI, $y_ROI, $i_yROI);
 													while ($stmt->fetch()) {
@@ -138,9 +174,16 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-      <!-- Custom Js -->
+      <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+        <script>
+            $(document).ready(function () {
+                //$('#stockRecommdTable').dataTable();
+            });
+		</script>
+         <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
-    
    
 </body>
 </html>

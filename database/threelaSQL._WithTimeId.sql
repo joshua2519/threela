@@ -280,8 +280,11 @@ CREATE table if not exists `threela`.`StockPredict` (
 	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
     `TimeId` INT NOT NULL COMMENT '日期代號',
     `PredictMon1` Int not null comment '一個月後漲跌: 0=跌，1=漲',
+    `ObservMon1` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
 	`PredictMon2` Int not null comment '二個月後漲跌: 0=跌，1=漲',
-    `PredictMon3` Int not null comment '三個月後漲跌: 0=跌，1=漲',     
+    `ObservMon2` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
+    `PredictMon3` Int not null comment '三個月後漲跌: 0=跌，1=漲',
+    `ObservMon3` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
     PRIMARY KEY (`StockId`,`TimeId`)  COMMENT '個股預測結果')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -291,10 +294,10 @@ CREATE table if not exists `threela`.`StockRecomd` (
 	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
     `Year` INT NOT NULL COMMENT '年份',
     `Season` Int not null comment '季節1-4',
-	`individual_ROI` Int not null comment '',
-    `y_ROI` Int not null comment '',
-    `i_yROI` Int not null comment '', 
-    PRIMARY KEY (`StockId`,`TimeId`)  COMMENT '基本面個股推薦結果')
+	`individual_ROI` double not null comment '',
+    `y_ROI` double not null comment '',
+    `i_yROI` double not null comment '', 
+    PRIMARY KEY (`StockId`,`Year`,`season`)  COMMENT '基本面個股推薦結果')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;

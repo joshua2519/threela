@@ -81,7 +81,7 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
 					
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                	<h1 class="page-header">基本面選股</h1>   
+                                	<h1 class="page-header">個股預測</h1>   
                             </div> 
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -91,9 +91,9 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
                                                 <th>股票代號-名稱</th>
                                                 <th>年份</th>
                                                 <th>季</th>
-                                                <th>個股報酬率</th>
-                                                <th>年報酬率</th>
-                                                <th>大盤報酬率</th>
+                                                <th>30日</th>
+                                                <th>60日</th>
+                                                <th>180日</th>
                                             </tr>
                                         </thead>
                                         <tbody>
