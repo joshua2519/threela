@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿<?php
+    $con1 = mysql_connect("10.120.30.4","threela","123456");
+
+    if (!$con1) {
+        die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db("threela", $con1);
+
+?>
+
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -89,7 +101,10 @@
                                 from comindustry as c1 join company as c2 on (c1.StockId = c2.StockId)
                                 where c1.StockId = '".$eid."'or c2.SampleName like '%".$stockname."%'" ;
                             $result = $conn->query($sql);
-                             
+
+                            
+                            // $result1 = $conn->query($sql1);
+                            // $row1 = mysql_fetch_row($result1);
                         ?>
                         <form method="get" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
                         <input type="text"  name="enterId" id="stockCode"></input>
@@ -113,12 +128,28 @@
                             }else{
                                 echo "<br>請輸入正確的代號<br>";
                             }
+
                             $conn->close();
-
-                        ?>
-
-                        </form>    
+                            
+                           
+                             
+                        ?> 
+                        
+                        
+                        </form>
+                        <?php
+                        $result1 = mysql_query("
+                            select m.RevMonthGrowthRate,m.RevYearGrowthRate,s.EPS,s.ROE,t.PE 
+                            from month as m join season as s on m.StockId = s.StockId 
+                            join trading as t on m.StockId = t.StockId 
+                            where m.StockId ='".$eid."' and m.Year='2015' and m.month='6' and s.season ='1' and s.Year='2015' and t.TimeId<=now() order by t.TimeId desc limit 0,1;")
+                        ?>    
                     </div>
+                    <?PHP
+                        $row1 = mysql_fetch_row($result1);
+                        echo '<span style="font-family:  Microsoft JhengHei;font-weight: bolder;color:orange;">'."營收成長率(月)".$row1[0]."&nbsp;&nbsp;營收成長率(年)".$row1[1]."&nbsp;&nbsp;EPS".$row1[2]."&nbsp;&nbsp;ROE".$row1[3]."&nbsp;&nbsp;PE".$row1[4].'</span>';
+                    ?>
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
@@ -147,22 +178,18 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-    
- 
-    
+
     <script src="http://code.highcharts.com/stock/highstock.js"></script>
     <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
-    
-   
-    
+
     <script src="test1.js"></script>
     
      <script>
-        
         stockid=<?php echo '"'.$eid.'"'; ?>;
         GetStockPrice(stockid);
     </script>
-     <!--<script src="text-coco.js"></script>-->
+    
+    <!--<script src="text-coco.js"></script>-->
     
 </body>
 </html>
