@@ -74,7 +74,7 @@
 
                 },
                 rangeSelector: {
-                    selected: 2
+                    selected: 4
                 },
 
                 title: {

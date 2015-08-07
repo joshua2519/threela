@@ -4,31 +4,31 @@ function GetStockPrice(stockid){
     $.getJSON('makeForPhp.php?enterId='+stockid, function (data) {
 
         //修改colum条的颜色
-        var originalDrawPoints = Highcharts.seriesTypes.column.prototype.drawPoints;  
-        Highcharts.seriesTypes.column.prototype.drawPoints = function () {  
-            var merge  = Highcharts.merge,  
-                series = this,  
-                chart  = this.chart,  
-                points = series.points,  
-                i      = points.length;  
+        // var originalDrawPoints = Highcharts.seriesTypes.column.prototype.drawPoints;  
+        // Highcharts.seriesTypes.column.prototype.drawPoints = function () {  
+        //     var merge  = Highcharts.merge,  
+        //         series = this,  
+        //         chart  = this.chart,  
+        //         points = series.points,  
+        //         i      = points.length;  
               
-            while (i--) {  
-                var candlePoint = chart.series[0].points[i];  
-                if(candlePoint.open != undefined && candlePoint.close !=  undefined){  //如果是K线图 改变矩形条颜色，否则不变  
-                    var color = (candlePoint.open < candlePoint.close) ? '#DD2200' : '#33AA22';  
-                    var seriesPointAttr = merge(series.pointAttr);  
-                    seriesPointAttr[''].fill = color;  
-                    seriesPointAttr.hover.fill = Highcharts.Color(color).brighten(0.3).get();  
-                    seriesPointAttr.select.fill = color;  
-                }else{  
-                    var seriesPointAttr = merge(series.pointAttr);  
-                }  
+        //     while (i--) {  
+        //         var candlePoint = chart.series[0].points[i];  
+        //         if(candlePoint.open != undefined && candlePoint.close !=  undefined){  //如果是K线图 改变矩形条颜色，否则不变  
+        //             var color = (candlePoint.open < candlePoint.close) ? '#DD2200' : '#33AA22';  
+        //             var seriesPointAttr = merge(series.pointAttr);  
+        //             seriesPointAttr[''].fill = color;  
+        //             seriesPointAttr.hover.fill = Highcharts.Color(color).brighten(0.3).get();  
+        //             seriesPointAttr.select.fill = color;  
+        //         }else{  
+        //             var seriesPointAttr = merge(series.pointAttr);  
+        //         }  
                   
-                points[i].pointAttr = seriesPointAttr;  
-            }  
+        //         points[i].pointAttr = seriesPointAttr;  
+        //     }  
       
-            originalDrawPoints.call(this);  
-        }           
+        //     originalDrawPoints.call(this);  
+        // }           
         
 
         // split the data set into ohlc and volume
@@ -98,7 +98,7 @@ function GetStockPrice(stockid){
             },
 
             rangeSelector: {
-                selected: 2
+                selected: 4
             },
 
             title: {
@@ -141,8 +141,9 @@ function GetStockPrice(stockid){
                 }
             },{
                 type: 'column',
-                
-                name: 'VOL',
+                negativeColor:'#008800',
+                color:'#FF0000',
+                name: 'BS20',
                 data: volume,
                 yAxis: 1,
                 dataGrouping: {
