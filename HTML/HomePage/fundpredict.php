@@ -1,4 +1,4 @@
-﻿<?php 
+<?php 
 $host="10.120.30.4";
 $port=3306;
 $socket="";
@@ -18,7 +18,7 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>基本面推薦</title>
+    <title>基本面預測</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->

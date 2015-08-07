@@ -59,11 +59,14 @@ $query = "SELECT case trans.Cate when 0 then '做多' when 1 then '放空' End a
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
                     <li>
-                        <a href="counter.php" class="active-menu"><i class="fa fa-table"></i> 籌碼面推薦</a>
+                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面推薦</a>
                     </li>
                  
                     <li>
-                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面推薦</a>
+                        <a  href="fundamentals.php"><i class="fa fa-edit"></i> 基本面推薦</a>
+                    </li>
+                    <li>
+                        <a  href="fundpredict.php"><i class="fa fa-edit"></i> 基本面預測</a>
                     </li>
                     <li>
                         <a href="map.php"><i class="fa fa-file"></i> 籌碼地緣分析</a>
