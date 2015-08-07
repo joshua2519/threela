@@ -279,12 +279,26 @@ COLLATE = utf8_unicode_ci;
 CREATE table if not exists `threela`.`StockPredict` (
 	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
     `TimeId` INT NOT NULL COMMENT '日期代號',
-	`Type` INT Not NULL COMMENT '預測類型:1=個股推薦，2=漲跌預測',
-    `Result` int not null comment 'if Type=1, Resutl=1 有推薦; if Type=2, Result=1 代表會漲，Result=-1代表會跌',    
-    PRIMARY KEY (`StockId`,`TimeId`,`Type`)  COMMENT '個股推薦與預測結果')
+    `PredictMon1` Int not null comment '一個月後漲跌: 0=跌，1=漲',
+	`PredictMon2` Int not null comment '二個月後漲跌: 0=跌，1=漲',
+    `PredictMon3` Int not null comment '三個月後漲跌: 0=跌，1=漲',     
+    PRIMARY KEY (`StockId`,`TimeId`)  COMMENT '個股預測結果')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+CREATE table if not exists `threela`.`StockRecomd` (
+	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
+    `Year` INT NOT NULL COMMENT '年份',
+    `Season` Int not null comment '季節1-4',
+	`individual_ROI` Int not null comment '',
+    `y_ROI` Int not null comment '',
+    `i_yROI` Int not null comment '', 
+    PRIMARY KEY (`StockId`,`TimeId`)  COMMENT '基本面個股推薦結果')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
 
 CREATE table if not exists `threela`.`Transaction` (
 	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
