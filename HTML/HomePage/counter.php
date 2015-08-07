@@ -18,7 +18,7 @@ $query = "SELECT case trans.Cate when 0 then '做多' when 1 then '放空' End a
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin html Template : Master</title>
+    <title>籌碼面推薦</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -75,63 +75,55 @@ $query = "SELECT case trans.Cate when 0 then '做多' when 1 then '放空' End a
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
-           
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                         <h1 class="page-header">
-                                                     個股進出場訊號 
-                        </h1>
-                            	
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                        	<th>類型</th>
-                                            <th>股票代號-名稱</th>
-                                            <th>進場日期</th>
-                                            <th>進場價格</th>
-                                            <th>出場日期</th>
-                                            <th>出場價格</th>
-                                            <th>投資報酬率</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php 
-                                    if ($stmt = $con->prepare($query)) {
-                                    	$stmt->execute();
-                                    	$stmt->bind_result($Type,$StockId, $stockname, $startdate, $Startprice, $enddate, $endprice, $ROI);
-                                    	while ($stmt->fetch()) {
-                                    		echo "<tr>";
-                                  			echo "<td>",$Type,'</td>';
-                                  			echo "<td><a href='chart.php?enterid=",$StockId,"'>",$stockname,'<a/></td>';
-                                  			echo "<td>",$startdate,'</td>';
-                                  			echo "<td>",$Startprice,'</td>';
-                                  			echo "<td>",$enddate,'</td>';
-                                  			echo "<td>",$endprice,'</td>';
-                                  			echo "<td>",$ROI,'</td>';
-                                  			echo "</tr>";                                    	
-                                    	}
-                                    	$stmt->close();
-                                    }
-                                    
-                                    
-                                    ?>                                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <!--End Advanced Tables -->
-                </div>
-            </div>
-           
-        
+			<div id="page-inner">	
+				<div class="row">			
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h1 class="page-header">個股進出場訊號</h1>                            	
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+										<thead>
+											<tr>
+												<th>類型</th>
+												<th>股票代號-名稱</th>
+												<th>進場日期</th>
+												<th>進場價格</th>
+												<th>出場日期</th>
+												<th>出場價格</th>
+												<th>投資報酬率</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+												if ($stmt = $con->prepare($query)) {
+													$stmt->execute();
+													$stmt->bind_result($Type,$StockId, $stockname, $startdate, $Startprice, $enddate, $endprice, $ROI);
+													while ($stmt->fetch()) {
+														echo "<tr>";
+														echo "<td>",$Type,'</td>';
+														echo "<td><a href='chart.php?enterid=",$StockId,"'>",$stockname,'<a/></td>';
+														echo "<td>",$startdate,'</td>';
+														echo "<td>",$Startprice,'</td>';
+														echo "<td>",$enddate,'</td>';
+														echo "<td>",$endprice,'</td>';
+														echo "<td>",$ROI,'</td>';
+														echo "</tr>";                                    	
+													}
+													$stmt->close();
+												}												
+											?>                                                       
+										</tbody>
+									</table>
+								</div>                            
+							</div>
+						</div>
+                    <!--End Advanced Tables -->           
+					</div>
+				</div>
+			</div>
         </div>
            
            
