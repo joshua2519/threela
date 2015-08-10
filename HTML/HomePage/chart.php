@@ -71,14 +71,16 @@
                         <a href="chart.php" class="active-menu"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
                     <li>
-                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面分析</a>
-                    </li>
-                 
-                    <li>
-                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面分析</a>
+                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面推薦</a>
                     </li>
                     <li>
-                        <a href="map.php"><i class="fa fa-file"></i> 地圖分析</a>
+                        <a  href="fundamentals.php"><i class="fa fa-edit"></i> 基本面推薦</a>
+                    </li>
+                    <li>
+                        <a  href="fundpredict.php"><i class="fa fa-edit"></i> 基本面預測</a>
+                    </li>
+                    <li>
+                        <a href="map.php"><i class="fa fa-file"></i> 籌碼地緣分析</a>
                     </li>
 
                 </ul>
@@ -135,26 +137,27 @@
                              
                         ?> 
                         
-                        
+                         <!-- or c.SampleName like '%".$stockname."%' -->
                         </form>
                         <?php
                         $result1 = mysql_query("
-                            select m.RevMonthGrowthRate,m.RevYearGrowthRate,s.EPS,s.ROE,t.PE 
+                            select round(m.RevMonthGrowthRate,2),round(m.RevYearGrowthRate,2),s.EPS,s.ROE,t.PE 
                             from month as m join season as s on m.StockId = s.StockId 
-                            join trading as t on m.StockId = t.StockId 
-                            where m.StockId ='".$eid."' and m.Year='2015' and m.month='6' and s.season ='1' and s.Year='2015' and t.TimeId<=now() order by t.TimeId desc limit 0,1;")
+                            join trading as t on m.StockId = t.StockId join company as c on m.StockId = c.StockId 
+                            where m.StockId ='".$eid."' and m.Year='2015' and m.month='6' and s.Year='2015' and s.season ='1' and t.TimeId<=now() order by t.TimeId desc limit 0,1;")
                         ?>    
                     </div>
                     <?PHP
                         $row1 = mysql_fetch_row($result1);
-                        echo '<span style="font-family:  Microsoft JhengHei;font-weight: bolder;color:orange;">'."營收成長率(月)".$row1[0]."&nbsp;&nbsp;營收成長率(年)".$row1[1]."&nbsp;&nbsp;EPS".$row1[2]."&nbsp;&nbsp;ROE".$row1[3]."&nbsp;&nbsp;PE".$row1[4].'</span>';
+                        echo '<span style="font-family:  Microsoft JhengHei;font-weight: bolder;color:orange;">'."營收成長率(月)&nbsp;".$row1[0]."&nbsp;&nbsp;營收成長率(年)&nbsp;".$row1[1]."&nbsp;&nbsp;EPS&nbsp;".$row1[2]."&nbsp;&nbsp;ROE&nbsp;".$row1[3]."&nbsp;&nbsp;PE&nbsp;".$row1[4].'</span>';
                     ?>
 
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            <div style="height:800px;width:1400px;">
-                                <div id="test_coco" style="height:800px; min-width: :310px; width:1550px;"></div>
+                            <div class="panel-body">
+                                
+                                <div id="test_coco" style="height:800px; min-width: :310px; "></div>
                             </div>
                         </div>
                     </div>
