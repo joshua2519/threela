@@ -51,7 +51,6 @@
         </nav>
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
-
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
@@ -63,14 +62,16 @@
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> 個股資訊</a>
                     </li>
                     <li>
-                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面分析</a>
+                        <a href="counter.php"><i class="fa fa-table"></i> 籌碼面推薦</a>
                     </li>
-               
                     <li>
-                        <a href="fundamentals.php"><i class="fa fa-edit"></i> 基本面分析</a>
+                        <a  href="fundamentals.php"><i class="fa fa-edit"></i> 基本面推薦</a>
                     </li>
-					<li>
-                        <a href="map.php"><i class="fa fa-file"></i> 地圖分析</a>
+                    <li>
+                        <a  href="fundpredict.php"><i class="fa fa-edit"></i> 基本面預測</a>
+                    </li>
+                    <li>
+                        <a href="map.php"><i class="fa fa-file"></i> 籌碼地緣分析</a>
                     </li>
                 </ul>
 
@@ -87,23 +88,30 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header">
-                            
-                            <strong> 加權指數：<?php echo $row[2] ?></strong>
-                            <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交金額：<?php echo $row[3] ?>(億) </strong>
-                        </h1>
-
+                        <div class="panel-heading">
+                            <h1 class="page-header">
+                                
+                                <strong> 加權指數：<?php echo $row[2] ?></strong>
+                                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成交金額：<?php echo $row[3] ?>(億) </strong>
+                            </h1>
+                        </div>
 
                     </div>
                 </div>
- 
-                <div style="float:left;height:600px;width:1350px;">
-                    <div>
-                        <div id="marketChart" style="height:795px ;width:1590px;min-width: :310px"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <!-- <div style="height:600px;width:1350px;"> -->
+                                    
+                                        <div id="marketChart" style="height:795px ;min-width: :310px"></div>
 
-                    </div>   
+                                     
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
                             
 
             </div>
