@@ -8,7 +8,6 @@ $dbname="threela";
 
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 or die ('Could not connect to the database server' . mysqli_connect_error());
-$query = "select distinct(stockId) FROM stocknearbroker";
 
 
 ?>
@@ -35,7 +34,7 @@ $query = "select distinct(stockId) FROM stocknearbroker";
 	<style>
 		#map-canvas{
 			width:100%;
-			height:800px;
+			height:600px;
 		}
 	</style>
 	    <script src="assets/js/jquery-1.10.2.js"></script>
@@ -48,6 +47,7 @@ $query = "select distinct(stockId) FROM stocknearbroker";
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
         <script>
+        	addedBrokers=[];
             $(document).ready(function () {
                 $('#stockmap').dataTable({
 					"bPaginate": true,
@@ -62,11 +62,106 @@ $query = "select distinct(stockId) FROM stocknearbroker";
 				center: pyrmont,
 				zoom: 8
 				});
+				infowindow = new google.maps.InfoWindow();
+				commarker = new google.maps.Marker();
+					    // Add the circle for this city to the map.
+				  comCircle = new google.maps.Circle();
             });
 			
-			function showMap(stockid){
-				alert(stockid)
+			function showMap(stockid,stockname,address,lat,lon){
+				 map.setCenter(new google.maps.LatLng(lat,lon));
+				 map.setZoom(13)
+				 
+				 commarker.setMap(map);
+				 commarker.setPosition(new google.maps.LatLng(lat,lon))
+				 commarker.setIcon("assets/office-building.png");
+			
+				  
+				  google.maps.event.addListener(commarker, 'click', function() {
+					var infocontent="<label>"+stockname+"</lable></br>地址:<label>"+address+"</label>";
+				    infowindow.setContent(infocontent);
+				    infowindow.open(map, this);
+				  });
+				  var comCircleOptions = {
+					      strokeColor: '#FF0000',
+					      strokeOpacity: 0.8,
+					      strokeWeight: 2,
+					      fillColor: '#FFFF00',
+					      fillOpacity: 0.35,
+					      map: map,
+					      center: new google.maps.LatLng(lat,lon),
+					      radius: 3000
+					    };
+
+				  comCircle.setOptions(comCircleOptions);
+				  showBrokers(stockid);
+
+// 				  var comSymbol={
+// 						    path:  google.maps.SymbolPath.CIRCLE,
+// 						    fillColor: 'red',
+// 						    fillOpacity: 1,
+// 						    scale: 10,
+// 						    strokeColor: 'black',
+// 						    strokeWeight: 1
+// 						  };
 			}
+
+			function showBrokers(stockid){
+				//var brokerjson=[{"brokerid":"9202","lat":24.147796,"lon":120.67415,"buy_one":0,"sell_one":203,"anoma":0.1845},{"brokerid":"921A","lat":24.153671,"lon":120.677616,"buy_one":1506,"sell_one":0,"anoma":0.09}];
+				//var obj = JSON.parse(brokerjson);
+				$.getJSON("http://10.120.30.4/makeForMap.php?stockId="+stockid, function( data ) {
+					clearBrokers();
+					$.each(data,function(index,broker) {
+						var brokermarker = new google.maps.Marker({
+						    map: map,
+						    position: new google.maps.LatLng(broker["lat"],broker["lon"])
+						  });
+						addedBrokers.push(brokermarker);	
+						  if  (broker["buy_one"] > broker["sell_one"]){
+
+			 				  var BrokSymbol={
+							    path:  google.maps.SymbolPath.CIRCLE,
+							    fillColor: 'red',
+							    fillOpacity: 1,
+							    scale: 10,
+							    strokeColor: 'black',
+	 						    strokeWeight: 1
+							  };
+							  brokermarker.setIcon(BrokSymbol);
+							}else{
+								var BrokSymbol={
+									    path:  google.maps.SymbolPath.CIRCLE,
+									    fillColor: 'lightgreen',
+									    fillOpacity: 1,
+									    scale: 10,
+									    strokeColor: 'black',
+			 						    strokeWeight: 1
+									  };
+									  brokermarker.setIcon(BrokSymbol);
+
+							}
+						  google.maps.event.addListener(brokermarker, 'click', function() {
+								var infocontent="<label>"+broker["brokerid"]+"-"+broker["name"]+"</lable></br>" +
+										         "買張:<label>"+broker["buy_one"]+"</label></br>"+
+										         "賣張:<label>"+broker["sell_one"]+"</label></br>" ;
+							    infowindow.setContent(infocontent);
+							    infowindow.open(map, this);
+							  });	
+						  		  
+					});
+				});
+				
+
+			}
+			
+			function clearBrokers() {
+				  for (var i = 0; i < addedBrokers.length; i++) {
+					  //alert(addedBrokers[i]);
+					  addedBrokers[i].setMap(null);
+				  }
+				  addedBrokers=[];
+			}
+			
 		</script>
 </head>
 <body>
@@ -135,14 +230,16 @@ $query = "select distinct(stockId) FROM stocknearbroker";
                                         </thead>
                                         <tbody>
                                            		<?php 
+                                           		$query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as stockname,c.Address,snb.lat_d,snb.lon_d FROM threela.stocknearbroker as snb join company as c on snb.stockid=c.stockid";
+                                           		 
 												if ($stmt = $con->prepare($query)) {
 													$stmt->execute();
-													$stmt->bind_result($stockId);
+													$stmt->bind_result($stockId,$stockname,$Address,$lat_d,$lon_d);
 													while ($stmt->fetch()) {
 														
 														echo "<tr>";														
-														echo "<td>",$stockId,'</td>';
-														echo "<td><input type='button' value='show map' onclick='showMap(",$stockId,")' /></td>";
+														echo "<td><a href='chart.php?enterid=",$stockId,"'>",$stockname,'<a/></td>';
+														echo "<td><input type='button' value='show map' onclick=showMap('$stockId','$stockname','$Address',$lat_d,$lon_d) /></td>";
 														#echo "<td>",$Season,'</td>';
 														#echo "<td>",$individual_ROI,'</td>';
 														#echo "<td>",$y_ROI,'</td>';
