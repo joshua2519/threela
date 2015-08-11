@@ -80,7 +80,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 			
 			function showMap(stockid,stockname,address,lat,lon){
 				 map.setCenter(new google.maps.LatLng(lat,lon));
-				 map.setZoom(13)
+				 map.setZoom(12)
 				 
 				 commarker.setMap(map);
 				 commarker.setPosition(new google.maps.LatLng(lat,lon))
@@ -173,6 +173,8 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 			}
 			
 		</script>
+		  <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
 </head>
 <body>
     <div id="wrapper">

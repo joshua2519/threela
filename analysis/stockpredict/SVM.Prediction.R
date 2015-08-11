@@ -7,8 +7,8 @@ data.sea=fetch(rs, n=-1)
 #data.sea$Diff = factor(data.sea.30$Diff)
 #data.sea.30$growClass = factor(data.sea.30$growClass)
 #data.sea.30$TimeId= as.Date(as.character(train.sea.30$TimeId),format='%Y%m%d')
-data.sea.mysql=data.sea[, which(names(data.sea) %in% c("stockid","timeid"))]
-data.sea=data.sea[, -which(names(data.sea) %in% c("stockid","timeid","diff","growClass","growRate"))]
+data.sea.mysql=data.sea[, which(names(data.sea) %in% c("StockId","TimeId"))]
+data.sea=data.sea[, -which(names(data.sea) %in% c("StockId","TimeId","Diff","growClass","growRate"))]
 
 
 

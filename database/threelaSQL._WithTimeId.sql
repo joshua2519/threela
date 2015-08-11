@@ -279,12 +279,12 @@ COLLATE = utf8_unicode_ci;
 CREATE table if not exists `threela`.`StockPredict` (
 	`StockId` varchar(10) NOT NULL COMMENT '公司代號',
     `TimeId` INT NOT NULL COMMENT '日期代號',
-    `PredictMon1` Int not null comment '一個月後漲跌: 0=跌，1=漲',
-    `ObservMon1` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
-	`PredictMon2` Int not null comment '二個月後漲跌: 0=跌，1=漲',
-    `ObservMon2` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
-    `PredictMon3` Int not null comment '三個月後漲跌: 0=跌，1=漲',
-    `ObservMon3` Int null comment '實際一個月後漲跌: 0=跌，1=漲',
+    `PredictMon1` Int not null comment '一個月後漲跌: 1=跌，2=漲',
+    `ObservMon1` Int null comment '實際一個月後漲跌: 1=跌，2=漲',
+	`PredictMon2` Int not null comment '二個月後漲跌: 1=跌，2=漲',
+    `ObservMon2` Int null comment '實際一個月後漲跌: 1=跌，2=漲',
+    `PredictMon3` Int not null comment '三個月後漲跌: 1=跌，2=漲',
+    `ObservMon3` Int null comment '實際一個月後漲跌: 1=跌，2=漲',
     PRIMARY KEY (`StockId`,`TimeId`)  COMMENT '個股預測結果')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
