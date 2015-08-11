@@ -69,10 +69,14 @@ predict.sea.filter.180.type.tune=predict(model.sea.filter.180.type.tune,vd.sea.1
 
 ##check accuracy
 table(predict.sea.filter.180.type.tune,vd.sea.180.class)
-
-
 confusionMatrix(table(predict.sea.filter.180.type.tune,vd.sea.180.class))
 
+##ROCR
+model.sea.filter.180.type.tune=svm(growClass ~YieldRate+PE+PBR+EPS+DebtRatio+ROE+MonthRate+YearRate,data=train.sea.180,type='nu-classification',cost=16,gamma=0.065,probability=TRUE)
+predict.sea.filter.180.type.tune=predict(model.sea.filter.180.type.tune,vd.sea.180.attr,decision.values=TRUE,probaility=TRUE)
+svm.roc=prediction(attributes(predict.sea.filter.180.type.tune)$decision.values,vd.sea.180.class)
+svm.auc=performance(svm.roc,'tpr','fpr')
+plot(svm.auc)
 
 #plot model
 plot(model.sea.filter.180, train.sea.filter.180, YieldRate ~ PE,color.palette = terrain.colors)
