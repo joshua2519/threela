@@ -268,7 +268,7 @@ CREATE table if not exists `threela`.`FundmentalRawSeason` (
 	`DebtRatio` DOUBLE NULL COMMENT '負債比例',
     `ROE` double NULL COMMENT '股東權益報',
     `MonthRate` double NOT NULL COMMENT '月增率',
-    `YearRate` double NOT NULL COMMENT '月增率',
+    `YearRate` double NOT NULL COMMENT '年增率',
     `growRate` double NOT NULL COMMENT '個股成長率-大盤成長率',
     `growClass` varchar(50) NOT NULL COMMENT '成長率分類',
     PRIMARY KEY (`StockId`,`TimeId`,`Diff`)  COMMENT '')
