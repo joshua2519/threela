@@ -27,6 +27,9 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <style>
+   .dataTables_wrapper { font-size: 16px; }
+   </style>
 </head>
 <body>
     <div id="wrapper">
