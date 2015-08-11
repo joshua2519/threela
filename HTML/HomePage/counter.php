@@ -35,6 +35,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 	rel="stylesheet" />
 	<style>
    			.dataTables_wrapper { font-size: 24px; }
+   			.dataTables_filter, .dataTables_info { display: none; }
    </style>
 </head>
 <body>
@@ -84,12 +85,34 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 							</div>
 							<div class="panel-body">
 								<ul class="nav nav-pills">
-									<li class="active"><a href="#tendays" data-toggle="tab">近十日</a></li>
+									<li class="active"><a href="#tendays" data-toggle="tab">近三十日</a></li>
 									<li class=""><a href="#history" data-toggle="tab">歷史資料</a>
 									</li>									
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane fade active in" id="tendays">
+										<div class="row">
+                            				<div class="col-lg-10">
+                            		 			<div class="form-group form-inline">
+                            		 				<div class="col-xs-3">
+														  <label for="tendays-OperateType">類型 : </label>
+														  <select class="form-control column_filter_Tendays" id="tendays-OperateType" >
+														  	<option value=""> </option>
+														  	<option value="做多">做多</option>
+														  	<option value="放空">放空</option>
+														  </select>
+													</div>                            		
+			                            			<div class="col-xs-3" >
+														  <label for="tendays-stockSearch">股票 : </label>
+														  <input class="form-control column_filter_Tendays" id="tendays-stockSearch" type="text">
+													</div>
+<!-- 													<div class="col-xs-3"> -->
+<!-- 														  <label for="tendays-dateSearch">日期: </label> -->
+<!-- 														  <input class="form-control column_filter_Tendays" id="tendays-dateSearch" type="text"> -->
+<!-- 													</div> -->
+												</div>
+                            				</div>
+                            			</div>
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="dataTables-tendays">
@@ -108,7 +131,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 												</thead>
 												<tbody>
 													<?php
-													$query = "SELECT case trans.Cate when 11 then '做多' when 21 then '放空' End as Type,trans.StockId,concat(trans.StockId,'-',com.SampleName) as stockname,fst.date as findstartdate,st.date as startdate,trans.Startprice, fet.date as findenddate,et.Date as enddate,trans.endprice,trans.ROI    FROM threela.transaction as trans   join  company as com on trans.stockid=com.stockid   left join time as st on st.timeid=trans.Starttimeid  left join time as fst on fst.timeid=trans.FindStarttimeid  left join time as et on et.timeid=trans.Endtimeid left join time as fet on fet.timeid=trans.FindEndtimeid where   st.Date >= DATE_ADD(CURDATE(), INTERVAL -10 DAY) or fst.Date >= DATE_ADD(CURDATE(), INTERVAL -10 DAY) or et.Date >=DATE_ADD(CURDATE(), INTERVAL -10 DAY) or fet.Date >= DATE_ADD(CURDATE(), INTERVAL -10 DAY) order by startdate desc,enddate desc";
+													$query = "SELECT case trans.Cate when 11 then '做多' when 21 then '放空' End as Type,trans.StockId,concat(trans.StockId,'-',com.SampleName) as stockname,fst.date as findstartdate,st.date as startdate,trans.Startprice, fet.date as findenddate,et.Date as enddate,trans.endprice,trans.ROI    FROM threela.transaction as trans   join  company as com on trans.stockid=com.stockid   left join time as st on st.timeid=trans.Starttimeid  left join time as fst on fst.timeid=trans.FindStarttimeid  left join time as et on et.timeid=trans.Endtimeid left join time as fet on fet.timeid=trans.FindEndtimeid where   st.Date >= DATE_ADD(CURDATE(), INTERVAL -30 DAY) or fst.Date >= DATE_ADD(CURDATE(), INTERVAL -30 DAY) or et.Date >=DATE_ADD(CURDATE(), INTERVAL -30 DAY) or fet.Date >= DATE_ADD(CURDATE(), INTERVAL -30 DAY) order by  startdate desc,enddate desc";
 														
 													if ($stmt = $con->prepare ( $query )) {
 														$stmt->execute ();
@@ -133,7 +156,29 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 											</table>
 										</div>
 									</div>
-									<div class="tab-pane fade" id="history">				
+									<div class="tab-pane fade" id="history">
+										<div class="row">
+                            				<div class="col-lg-10">
+                            		 			<div class="form-group form-inline">
+                            		 				<div class="col-xs-3">
+														  <label for="history-OperateType">類型 : </label>
+														  <select class="form-control column_filter_His" id="history-OperateType" >
+														  	<option value=""> </option>
+														  	<option value="做多">做多</option>
+														  	<option value="放空">放空</option>
+														  </select>
+													</div>                            		
+			                            			<div class="col-xs-3" >
+														  <label for="history-stockSearch">股票 : </label>
+														  <input class="form-control column_filter_His" id="history-stockSearch" type="text">
+													</div>
+<!-- 													<div class="col-xs-3"> -->
+<!-- 														  <label for="history-dateSearch">日期: </label> -->
+<!-- 														  <input class="form-control column_filter_His" id="history-dateSearch" type="text"> -->
+<!-- 													</div> -->
+												</div>
+                            				</div>
+                            			</div>				
 										<div class="table-responsive">
 											<table class="table table-striped table-bordered table-hover"
 												id="dataTables-history">
@@ -152,7 +197,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 												</thead>
 												<tbody>
 													<?php
-													$query = "SELECT case trans.Cate when 11 then '做多' when 21 then '放空' End as Type,trans.StockId,concat(trans.StockId,'-',com.SampleName) as stockname,fst.date as findstartdate,st.date as startdate,trans.Startprice, fet.date as findenddate,et.Date as enddate,trans.endprice,trans.ROI    FROM threela.transaction as trans   join  company as com on trans.stockid=com.stockid   left join time as st on st.timeid=trans.Starttimeid  left join time as fst on fst.timeid=trans.FindStarttimeid  left join time as et on et.timeid=trans.Endtimeid left join time as fet on fet.timeid=trans.FindEndtimeid where   st.Date < DATE_ADD(CURDATE(), INTERVAL -10 DAY) or fst.Date < DATE_ADD(CURDATE(), INTERVAL -10 DAY) or et.Date < DATE_ADD(CURDATE(), INTERVAL -10 DAY) or fet.Date < DATE_ADD(CURDATE(), INTERVAL -10 DAY) order by startdate desc,enddate desc";
+													$query = "SELECT case trans.Cate when 11 then '做多' when 21 then '放空' End as Type,trans.StockId,concat(trans.StockId,'-',com.SampleName) as stockname,fst.date as findstartdate,st.date as startdate,trans.Startprice, fet.date as findenddate,et.Date as enddate,trans.endprice,trans.ROI    FROM threela.transaction as trans   join  company as com on trans.stockid=com.stockid   left join time as st on st.timeid=trans.Starttimeid  left join time as fst on fst.timeid=trans.FindStarttimeid  left join time as et on et.timeid=trans.Endtimeid left join time as fet on fet.timeid=trans.FindEndtimeid where   st.Date < DATE_ADD(CURDATE(), INTERVAL -30 DAY) or fst.Date < DATE_ADD(CURDATE(), INTERVAL -30 DAY) or et.Date < DATE_ADD(CURDATE(), INTERVAL -30 DAY) or fet.Date < DATE_ADD(CURDATE(), INTERVAL -30 DAY) order by startdate desc,enddate desc";
 													if ($stmt = $con->prepare ( $query )) {
 														$stmt->execute ();
 														$stmt->bind_result ( $Type, $StockId, $stockname,$findstartdate, $startdate, $Startprice,$findenddate, $enddate, $endprice, $ROI);
@@ -207,7 +252,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                 $('#dataTables-tendays').dataTable( {
                     "bPaginate": true,
                     "bLengthChange": false,
-                    "bFilter": false,
+                    "bFilter": true,
                     "bSort": true,
                     "bInfo": true,
                     "bAutoWidth": true,
@@ -225,7 +270,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                 $('#dataTables-history').dataTable( {
                     "bPaginate": true,
                     "bLengthChange": false,
-                    "bFilter": false,
+                    "bFilter": true,
                     "bSort": true,
                     "bInfo": true,
                     "bAutoWidth": true,
@@ -239,7 +284,73 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                           }                       
                     }
                 } );
+
+                $('input.column_filter_Tendays').on( 'keyup click', function () {                    
+                	filterColumnTendays( $(this).attr('id'));
+                } );
+                $('select.column_filter_Tendays').on( 'change', function () {                    
+                	filterColumnTendays( $(this).attr('id'));
+                } );
+                $('input.column_filter_His').on( 'keyup click', function () {                    
+                	filterColumnHis( $(this).attr('id'));
+                } );
+                $('select.column_filter_His').on( 'change', function () {                    
+                	filterColumnHis( $(this).attr('id'));
+                } );
             });
+
+            function filterColumnTendays(inputid) {
+                if(inputid.indexOf("OperateType") > -1 ){
+                		$('#dataTables-tendays').DataTable().column(0).search(
+                            $('#'+inputid).val(),true,true
+                        ).draw();
+                    }else if(inputid.indexOf("stockSearch") > -1 ){
+                    		$('#dataTables-tendays').DataTable().column(1).search(
+                                $('#'+inputid).val(),true,true
+                            ).draw();
+                    }else{
+//                     	  $('#dataTables-tendays').DataTable().column(2).search(
+//                                 $('#'+inputid).val(),true,true
+//                             ).draw();
+//                     	  $('#dataTables-tendays').DataTable().column(3).search(
+//                                   $('#'+inputid).val(),true,true
+//                               ).draw();
+//                     	  $('#dataTables-tendays').DataTable().column(4).search(
+//                                   $('#'+inputid).val(),true,true
+//                               ).draw();
+//                     	  $('#dataTables-tendays').DataTable().column(5).search(
+//                                   $('#'+inputid).val(),true,true
+//                               ).draw();
+                    }             
+                
+            }
+            function filterColumnHis (inputid) {
+            	 if(inputid.indexOf("OperateType") > -1 ){
+             		$('#dataTables-history').DataTable().column(0).search(
+                         $('#'+inputid).val(),true,true
+                     ).draw();
+                 }else if(inputid.indexOf("stockSearch") > -1 ){
+                 		$('#dataTables-history').DataTable().column(1).search(
+                             $('#'+inputid).val(),true,true
+                         ).draw();
+                 }else{
+//                  	  $('#dataTables-history').DataTable().column(2).search(
+//                              $('#'+inputid).val(),true,true
+//                          ).draw();
+//                  	  $('#dataTables-history').DataTable().column(3).search(
+//                                $('#'+inputid).val(),true,true
+//                            ).draw();
+//                  	  $('#dataTables-history').DataTable().column(4).search(
+//                                $('#'+inputid).val(),true,true
+//                            ).draw();
+//                  	  $('#dataTables-history').DataTable().column(5).search(
+//                                $('#'+inputid).val(),true,true
+//                            ).draw();
+                 }
+                              
+            }
+
+            
 		</script>
 	<!-- Custom Js -->
 	<script src="assets/js/custom-scripts.js"></script>

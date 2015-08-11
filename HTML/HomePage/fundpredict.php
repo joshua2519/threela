@@ -8,7 +8,6 @@ $dbname="threela";
 
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 or die ('Could not connect to the database server' . mysqli_connect_error());
-$query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as stockname,snb.lat_d,snb.lon_d FROM threela.stocknearbroker as snb join company as c on snb.stockid=c.stockid";
 
 
 ?>
@@ -28,7 +27,8 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <style>
-   .dataTables_wrapper { font-size: 16px; }
+	   .dataTables_wrapper { font-size: 24px; }
+	   .dataTables_filter, .dataTables_info { display: none; }
    </style>
 </head>
 <body>
@@ -87,31 +87,65 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
                                 	<h1 class="page-header">個股預測</h1>   
                             </div> 
                             <div class="panel-body">
+                            <div class="row">
+                            		<div class="col-lg-10">
+                            		 <div class="form-group form-inline">                            		
+	                            			<div class="col-xs-3" data-column="0">
+												  <label for="stockSearch">股票 : </label>
+												  <input class="form-control column_filter" id="stockSearch" type="text">
+											</div>
+											<div class="col-xs-3">
+												  <label for="yearSearch" data-column="1">年 : </label>
+												  <input class="form-control column_filter" id="yearSearch" type="text">
+											</div>
+											<div class="col-xs-3">
+												  <label for="seasonSearch" data-column="2">季 : </label>
+												  <input class="form-control column_filter" id="seasonSearch" type="text">
+											</div>
+										</div>
+                            		</div>
+                            	</div>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-striped table-bordered table-hover" id="tableStockPredict">
                                         <thead>
                                             <tr>
                                                 <th>股票代號-名稱</th>
                                                 <th>年份</th>
                                                 <th>季</th>
-                                                <th>30日</th>
-                                                <th>60日</th>
-                                                <th>180日</th>
+                                                <th>起算日</th>
+                                                <th>30日後</th>
+                                                <th>60日後</th>
+                                                <th>180日後</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                           		<?php 
+                                           		<?php
+												$query = "SELECT sp.StockId,concat(sp.StockId,'-',com.SampleName) as stockname,st.Year,st.Season,st.Date, sp.PredictMon1,sp.PredictMon2,sp.PredictMon3 FROM threela.stockpredict as sp join  company as com on sp.stockid=com.stockid   left join time as st on st.timeid=sp.TimeId";
+                                           		                                           		 
 												if ($stmt = $con->prepare($query)) {
 													$stmt->execute();
-													$stmt->bind_result($Stockid, $stockname, $Year, $Season, $individual_ROI, $y_ROI, $i_yROI);
+													$stmt->bind_result($Stockid, $stockname, $Year, $Season,$Date, $PredictMon1, $PredictMon2, $PredictMon3);
 													while ($stmt->fetch()) {
 														echo "<tr>";														
-														echo "<td><a href='chart.php?enterId=",$StockId,"'>",$stockname,'<a/></td>';
-														echo "<td>",$Year,'</td>';
-														echo "<td>",$Season,'</td>';
-														echo "<td>",$individual_ROI,'</td>';
-														echo "<td>",$y_ROI,'</td>';
-														echo "<td>",$i_yROI,'</td>';
+														echo "<td><a href='chart.php?enterId=",$Stockid,"'>",$stockname,'<a/></td>';
+														echo "<td>",$Year,"</td>";
+														echo "<td>",$Season,"</td>";	
+														echo "<td>",$Date,"</td>";
+														if ($PredictMon1=='1'){
+															echo  "<td><img src='assets/Stock-Index-Down-icon_24.png'  title='跌' /></td>";
+														}else{
+															echo  "<td><img src='assets/Stock-Index-Up-icon_24.png'  title='漲' /></td>";
+														}													
+														if ($PredictMon2=='1'){
+															echo  "<td><img src='assets/Stock-Index-Down-icon_24.png' title='跌' /></td>";
+														}else{
+															echo  "<td><img src='assets/Stock-Index-Up-icon_24.png'  title='漲' /></td>";
+														}
+														if ($PredictMon3=='1'){
+															echo  "<td><img src='assets/Stock-Index-Down-icon_24.png' title='跌' /></td>";
+														}else{
+															echo  "<td><img src='assets/Stock-Index-Up-icon_24.png'  title='漲'  /></td>";
+														}														
 														echo "</tr>";                                    	
 													}
 													$stmt->close();
@@ -141,10 +175,41 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-      <!-- Custom Js -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+     	<script>
+            $(document).ready(function () {
+                $('#tableStockPredict').dataTable( {
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": true,                   
+                    "oLanguage": {
+                        "sLengthMenu": "顯示 _MENU_ 筆記錄",
+                        "sZeroRecords": "無符合資料",
+                        "sInfo": "目前記錄：_START_ 至 _END_, 總筆數：_TOTAL_",                        
+                        "oPaginate": {
+                            "sPrevious": "前一頁",
+                            "sNext": "後一頁"
+                          }                       
+                    }
+                } );
+
+                $('input.column_filter').on( 'keyup click', function () {                    
+                    filterColumn( $(this).attr('id'),$(this).parents('div').attr('data-column') );
+                } );               
+            });
+
+            function filterColumn (inputid,colindex) {
+                $('#tableStockPredict').DataTable().column(colindex).search(
+                    $('#'+inputid).val(),true,true
+                ).draw();
+            }
+            
+		</script>
+     <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
-    
-   
 </body>
 </html>
 <?php 
