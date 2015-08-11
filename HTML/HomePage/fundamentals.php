@@ -143,7 +143,7 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
 													$stmt->bind_result($Stockid, $stockname, $Year, $Season, $individual_ROI, $y_ROI, $i_yROI);
 													while ($stmt->fetch()) {
 														echo "<tr>";														
-														echo "<td><a href='chart.php?enterid=",$StockId,"'>",$stockname,'<a/></td>';
+														echo "<td><a href='chart.php?enterId=",$Stockid,"'>",$stockname,'<a/></td>';
 														echo "<td>",$Year,'</td>';
 														echo "<td>",$Season,'</td>';
 														echo "<td>",$individual_ROI,'</td>';

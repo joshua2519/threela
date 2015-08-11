@@ -100,7 +100,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 					      fillOpacity: 0.35,
 					      map: map,
 					      center: new google.maps.LatLng(lat,lon),
-					      radius: 3000
+					      radius: 6000
 					    };
 
 				  comCircle.setOptions(comCircleOptions);
@@ -248,7 +248,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 													while ($stmt->fetch()) {
 														
 														echo "<tr>";														
-														echo "<td><h3><a href='chart.php?enterid=",$stockId,"'>",$stockname,'<a/></h3></td>';
+														echo "<td><h3><a href='chart.php?enterId=",$stockId,"'>",$stockname,'<a/></h3></td>';
 														echo "<td><input type='button' class='btn btn-info' value='show map' onclick=showMap('$stockId','$stockname','$Address',$lat_d,$lon_d) /></td>";
 														#echo "<td>",$Season,'</td>';
 														#echo "<td>",$individual_ROI,'</td>';
