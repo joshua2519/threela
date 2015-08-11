@@ -25,7 +25,11 @@ $query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Y
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-</head>
+
+   <style>
+   			.dataTables_wrapper { font-size: 16px; }
+   </style>
+   </head>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">

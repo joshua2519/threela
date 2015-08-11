@@ -1,10 +1,8 @@
-
 <?php
     $servername = "10.120.30.4";
     $username = "threela";
     $password = "123456";
     $dbname = "threela";
-
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error){
         die("Connection failed:" . $conn->connect_error);
@@ -16,10 +14,6 @@
 	FROM tradin2bsday20ma as t1 JOIN time as t2 ON t1.TimeId = t2.timeid where t1.StockId like '".$ee."' 
 	or t1.StockId like (select StockId from company where SampleName like '%".$stockname."%')" ;
 	$dailyOfStock = $conn->query($trading);
-
-	// ' 
-	
-	// $jsonData['name'] = $eid;
 	while($row = $dailyOfStock->fetch_assoc()){
 		$jsonData []= array(
 			$row['TimeStamp'],
@@ -37,9 +31,7 @@
 
 	}
 	header( 'Content-Type: application/json' );
-	
 	echo json_encode($jsonData, JSON_NUMERIC_CHECK);
-	
 	$conn->close();
 
 ?>
