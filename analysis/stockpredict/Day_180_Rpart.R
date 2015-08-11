@@ -39,4 +39,4 @@ predict.rpart.sea.filter.180=predict(rpart.train.sea.180,vd.sea.180.attr,type='p
 pred.to.roc=predict.rpart.sea.filter.180[,2]
 pred.rocr <- prediction(pred.to.roc, vd.sea.180.class)
 perf.tpr.rocr <- performance(pred.rocr,'tpr','fpr')
-plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.tpr.rocr@y.values)))

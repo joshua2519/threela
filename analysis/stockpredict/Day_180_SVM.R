@@ -80,11 +80,3 @@ plot(model.sea.filter.180, train.sea.filter.180, YieldRate ~ PBR,color.palette =
 plot(model.sea.filter.180, train.sea.filter.180, YieldRate ~ EPS,color.palette = terrain.colors)
 plot(model.sea.filter.180, train.sea.filter.180, YieldRate ~ ROE,color.palette = terrain.colors)
 
-
-
-
-
-
-
-
-#plot model
