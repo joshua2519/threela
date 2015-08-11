@@ -41,5 +41,5 @@ even <- function(x) x%%2 == 0
 pred.to.roc=unlist(predict.ctree.sea.filter.180)[even(1:length(unlist(predict.ctree.sea.filter.180)))]
 pred.rocr <- prediction(pred.to.roc, vd.sea.180.class)
 perf.tpr.rocr <- performance(pred.rocr,'tpr','fpr')
-plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.rocr@y.values)))
+plot(perf.tpr.rocr, colorize=T,main=paste("AUC:",(perf.tpr.rocr@y.values)))
 

@@ -27,6 +27,9 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <style>
+   .dataTables_wrapper { font-size: 16px; }
+   </style>
 </head>
 <body>
     <div id="wrapper">
@@ -103,7 +106,7 @@ $query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as s
 													$stmt->bind_result($Stockid, $stockname, $Year, $Season, $individual_ROI, $y_ROI, $i_yROI);
 													while ($stmt->fetch()) {
 														echo "<tr>";														
-														echo "<td><a href='chart.php?enterid=",$StockId,"'>",$stockname,'<a/></td>';
+														echo "<td><a href='chart.php?enterId=",$StockId,"'>",$stockname,'<a/></td>';
 														echo "<td>",$Year,'</td>';
 														echo "<td>",$Season,'</td>';
 														echo "<td>",$individual_ROI,'</td>';

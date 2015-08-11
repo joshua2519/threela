@@ -33,6 +33,9 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 <!-- TABLE STYLES-->
 <link href="assets/js/dataTables/dataTables.bootstrap.css"
 	rel="stylesheet" />
+	<style>
+   			.dataTables_wrapper { font-size: 24px; }
+   </style>
 </head>
 <body>
 	<div id="wrapper">
@@ -113,7 +116,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 														while ( $stmt->fetch () ) {
 															echo "<tr>";
 															echo "<td>", $Type, '</td>';
-															echo "<td><a href='chart.php?enterid=", $StockId, "'>", $stockname, '<a/></td>';
+															echo "<td><a href='chart.php?enterId=", $StockId, "'>", $stockname, '<a/></td>';
 															echo "<td>", $findstartdate,'</td>';
 															echo "<td>", $startdate,'</td>';
 																echo "<td>",$Startprice,'</td>';
@@ -156,7 +159,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 														while ( $stmt->fetch () ) {
 															echo "<tr>";
 															echo "<td>", $Type, '</td>';
-															echo "<td><a href='chart.php?enterid=", $StockId, "'>", $stockname, '<a/></td>';
+															echo "<td><a href='chart.php?enterId=", $StockId, "'>", $stockname, '<a/></td>';
 															echo "<td>", $findstartdate,'</td>';
 															echo "<td>", $startdate,'</td>';
 																echo "<td>",$Startprice,'</td>';

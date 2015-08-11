@@ -36,6 +36,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 			width:100%;
 			height:700px;
 		}
+		.dataTables_wrapper { font-size: 16px; }
 	</style>
 	    <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- Bootstrap Js -->
@@ -56,6 +57,15 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                     "bSort": true,
                     "bInfo": true,
                     "bAutoWidth": true,
+                    "oLanguage": {
+                        "sLengthMenu": "顯示 _MENU_ 筆記錄",
+                        "sZeroRecords": "無符合資料",
+                        "sInfo": "目前記錄：_START_ 至 _END_, 總筆數：_TOTAL_",                        
+                        "oPaginate": {
+                            "sPrevious": "前一頁",
+                            "sNext": "後一頁"
+                          }                       
+                    }
 				});
 				var pyrmont = new google.maps.LatLng(23.6,120.8);
 				map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -90,7 +100,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 					      fillOpacity: 0.35,
 					      map: map,
 					      center: new google.maps.LatLng(lat,lon),
-					      radius: 3000
+					      radius: 6000
 					    };
 
 				  comCircle.setOptions(comCircleOptions);
@@ -109,7 +119,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 			function showBrokers(stockid){
 				//var brokerjson=[{"brokerid":"9202","lat":24.147796,"lon":120.67415,"buy_one":0,"sell_one":203,"anoma":0.1845},{"brokerid":"921A","lat":24.153671,"lon":120.677616,"buy_one":1506,"sell_one":0,"anoma":0.09}];
 				//var obj = JSON.parse(brokerjson);
-				$.getJSON("http://10.120.30.4/makeForMap.php?stockId="+stockid, function( data ) {
+				$.getJSON("http://10.120.30.13/makeForMap.php?stockId="+stockid, function( data ) {
 					clearBrokers();
 					$.each(data,function(index,broker) {
 						var brokermarker = new google.maps.Marker({
@@ -238,7 +248,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 													while ($stmt->fetch()) {
 														
 														echo "<tr>";														
-														echo "<td><h3><a href='chart.php?enterid=",$stockId,"'>",$stockname,'<a/></h3></td>';
+														echo "<td><h3><a href='chart.php?enterId=",$stockId,"'>",$stockname,'<a/></h3></td>';
 														echo "<td><input type='button' class='btn btn-info' value='show map' onclick=showMap('$stockId','$stockname','$Address',$lat_d,$lon_d) /></td>";
 														#echo "<td>",$Season,'</td>';
 														#echo "<td>",$individual_ROI,'</td>';
@@ -273,3 +283,6 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
    
 </body>
 </html>
+<?php 
+$con->close();  
+?>
