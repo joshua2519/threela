@@ -9,8 +9,7 @@
         die("Connection failed:" . $conn->connect_error);
     }
     
-	$trading = "select (UNIX_TIMESTAMP(t2.Date)+86400)*1000 as TimeStamp, d.OpenPrice, d.HighPrice , d.LowPrice ,d.ClosePrice , d.TAPI
-FROM `index` as d JOIN time as t2 ON d.TimeId = t2.timeid " ;
+	$trading = "select (UNIX_TIMESTAMP(t2.Date)+86400)*1000 as TimeStamp, d.OpenPrice, d.HighPrice , d.LowPrice ,d.ClosePrice , d.BSMA20, d.MA10  , d.MA60,d.UBand,d.LBand FROM `index` as d JOIN time as t2 ON d.TimeId = t2.timeid;" ;
 	$dailyOfStock = $conn->query($trading);
 
 	
@@ -22,7 +21,11 @@ FROM `index` as d JOIN time as t2 ON d.TimeId = t2.timeid " ;
 			$row['HighPrice'],
 			$row['LowPrice'],
 			$row['ClosePrice'],
-			$row['TAPI']
+			$row['BSMA20'],
+			$row['MA10'],
+			$row['MA60'],
+			$row['UBand'],
+			$row['LBand']
 			);
 
 		// $row_arry['TimeStamp']= $row['TimeStamp'];
