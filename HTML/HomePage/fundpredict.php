@@ -8,7 +8,7 @@ $dbname="threela";
 
 $con = new mysqli($host, $user, $password, $dbname, $port, $socket)
 or die ('Could not connect to the database server' . mysqli_connect_error());
-$query = "SELECT sr.Stockid,concat(sr.StockId,'-',com.SampleName) as stockname,Year,Season,individual_ROI,y_ROI,i_yROI  FROM threela.stockrecomd as sr join  company as com on sr.stockid=com.stockid  order by year desc,season";
+$query = "SELECT distinct(snb.stockid),concat(snb.StockId,'-',c.SampleName) as stockname,snb.lat_d,snb.lon_d FROM threela.stocknearbroker as snb join company as c on snb.stockid=c.stockid";
 
 
 ?>
