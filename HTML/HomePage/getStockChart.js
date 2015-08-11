@@ -106,6 +106,7 @@ function GetStockPrice(stockid){
             },
 
             yAxis: [{
+                tickInterval:5,//寬度
                 labels: {
                     align: 'right',
                     x: -3
