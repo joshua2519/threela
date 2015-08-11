@@ -34,7 +34,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 	<style>
 		#map-canvas{
 			width:100%;
-			height:600px;
+			height:700px;
 		}
 	</style>
 	    <script src="assets/js/jquery-1.10.2.js"></script>
@@ -57,7 +57,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                     "bInfo": true,
                     "bAutoWidth": true,
 				});
-				var pyrmont = new google.maps.LatLng(23.5,120.8);
+				var pyrmont = new google.maps.LatLng(23.6,120.8);
 				map = new google.maps.Map(document.getElementById('map-canvas'), {
 				center: pyrmont,
 				zoom: 8
@@ -217,15 +217,15 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
                     <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Map
+                                             鄰近劵商買賣異常公司列表
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="stockmap">
                                         <thead>
                                             <tr>
-                                                <th>股票代號-名稱</th>
-                                                 <th>功能</th>
+                                                <th><h3>股票代號-名稱</h3></th>
+                                                 <th><h3>功能</h3></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -238,8 +238,8 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 													while ($stmt->fetch()) {
 														
 														echo "<tr>";														
-														echo "<td><a href='chart.php?enterid=",$stockId,"'>",$stockname,'<a/></td>';
-														echo "<td><input type='button' value='show map' onclick=showMap('$stockId','$stockname','$Address',$lat_d,$lon_d) /></td>";
+														echo "<td><h3><a href='chart.php?enterid=",$stockId,"'>",$stockname,'<a/></h3></td>';
+														echo "<td><input type='button' class='btn btn-info' value='show map' onclick=showMap('$stockId','$stockname','$Address',$lat_d,$lon_d) /></td>";
 														#echo "<td>",$Season,'</td>';
 														#echo "<td>",$individual_ROI,'</td>';
 														#echo "<td>",$y_ROI,'</td>';
