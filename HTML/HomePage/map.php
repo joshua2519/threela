@@ -80,7 +80,7 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 			
 			function showMap(stockid,stockname,address,lat,lon){
 				 map.setCenter(new google.maps.LatLng(lat,lon));
-				 map.setZoom(12)
+				 map.setZoom(11)
 				 
 				 commarker.setMap(map);
 				 commarker.setPosition(new google.maps.LatLng(lat,lon))
@@ -100,10 +100,18 @@ or die ('Could not connect to the database server' . mysqli_connect_error());
 					      fillOpacity: 0.35,
 					      map: map,
 					      center: new google.maps.LatLng(lat,lon),
-					      radius: 6000
+					      radius:10000
 					    };
 
 				  comCircle.setOptions(comCircleOptions);
+
+				  google.maps.event.addListener(comCircle, 'click', function(event) {
+						var infocontent="<label>半徑10公里範圍</lable>";
+					    infowindow.setContent(infocontent);
+					    infowindow.setPosition(event.latLng);
+					    infowindow.open(map, this);
+					  });
+				  
 				  showBrokers(stockid);
 
 // 				  var comSymbol={

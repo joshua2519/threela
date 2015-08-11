@@ -10,6 +10,90 @@ qplot(data = train.sea.30, x = train.sea.30$ROE,binwidth=10) + ylab("ROE")
 qplot(data = train.sea.30, x = train.sea.30$MonthRate,binwidth=100) + ylab("MonthRate")
 qplot(data = train.sea.30, x = train.sea.30$YearRate,binwidth=100) + ylab("YearRate")
 
+train.sea.30=train.sea.30[train.sea.30$YieldRate<50 & train.sea.30$PE<50 & train.sea.30$ROE>-50 & train.sea.30$ROE<100 & train.sea.30$MonthRate<100 & train.sea.30$MonthRate > -50 & train.sea.30$YearRate >-100 & train.sea.30$YearRate<100,]
+train.sea.30$growClass=droplevels(train.sea.30$growClass)
+train.sea.30$growClass[train.sea.30$growRate >= 0]='good'
+train.sea.30$growClass[train.sea.30$growRate < 0]='bad'
+train.sea.30$growClass=factor(train.sea.30$growClass)
+
+train.sea.90=train.sea.90[train.sea.90$YieldRate<50 & train.sea.90$PE<50 & train.sea.90$ROE>-50 & train.sea.90$ROE<100 & train.sea.90$MonthRate<100 & train.sea.90$MonthRate > -50 & train.sea.90$YearRate >-100 & train.sea.90$YearRate<100,]
+train.sea.90$growClass=droplevels(train.sea.90$growClass)
+train.sea.90$growClass[train.sea.90$growRate >= 0]='good'
+train.sea.90$growClass[train.sea.90$growRate < 0]='bad'
+train.sea.90$growClass=factor(train.sea.90$growClass)
+
+train.sea.180=train.sea.180[train.sea.180$YieldRate<50 & train.sea.180$PE<50 & train.sea.180$ROE>-50 & train.sea.180$ROE<100 & train.sea.180$MonthRate<100 & train.sea.180$MonthRate > -50 & train.sea.180$YearRate >-100 & train.sea.180$YearRate<100,]
+train.sea.180$growClass=droplevels(train.sea.180$growClass)
+train.sea.180$growClass[train.sea.180$growRate >= 0]='good'
+train.sea.180$growClass[train.sea.180$growRate < 0]='bad'
+train.sea.180$growClass=factor(train.sea.180$growClass)
+
+
+
+plot(train.sea.30$growRate,train.sea.30$EPS)
+plot(train.sea.30$growRate,train.sea.30$ROE)
+plot(train.sea.30$growRate,train.sea.30$MonthRate)
+plot(train.sea.30$growRate,train.sea.30$YearRate)
+
+###scatterplot
+qplot (YieldRate, PE, data = train.sea.30, colour = growClass)
+qplot (YieldRate, PBR, data = train.sea.30, colour = growClass)
+qplot (YieldRate, EPS, data = train.sea.30, colour = growClass)
+qplot (YieldRate, DebtRatio, data = train.sea.30, colour = growClass)
+qplot (YieldRate, ROE, data = train.sea.30, colour = growClass)
+qplot (YieldRate, MonthRate, data = train.sea.30, colour = growClass)
+qplot (YieldRate, YearRate, data = train.sea.30, colour = growClass)
+qplot (PE, PBR, data = train.sea.30, colour = growClass)
+qplot (PE, EPS, data = train.sea.30, colour = growClass)
+qplot (PE, DebtRatio, data = train.sea.30, colour = growClass)
+qplot (PE, ROE, data = train.sea.30, colour = growClass)
+qplot (PE, MonthRate, data = train.sea.30, colour = growClass)
+qplot (PE, YearRate, data = train.sea.30, colour = growClass)
+qplot (PBR, EPS, data = train.sea.30, colour = growClass)
+qplot (PBR, DebtRatio, data = train.sea.30, colour = growClass)
+qplot (PBR, ROE, data = train.sea.30, colour = growClass)
+qplot (PBR, MonthRate, data = train.sea.30, colour = growClass)
+qplot (PBR, YearRate, data = train.sea.30, colour = growClass)
+qplot (EPS, DebtRatio, data = train.sea.30, colour = growClass)
+qplot (EPS, ROE, data = train.sea.30, colour = growClass)
+qplot (EPS, MonthRate, data = train.sea.30, colour = growClass)
+qplot (EPS, YearRate, data = train.sea.30, colour = growClass)
+qplot (DebtRatio, ROE, data = train.sea.30, colour = growClass)
+qplot (DebtRatio, MonthRate, data = train.sea.30, colour = growClass)
+qplot (DebtRatio, YearRate, data = train.sea.30, colour = growClass)
+qplot (ROE, MonthRate, data = train.sea.30, colour = growClass)
+qplot (ROE, YearRate, data = train.sea.30, colour = growClass)
+qplot (MonthRate, YearRate, data = train.sea.30, colour = growClass)
+
+#variables ~ growRate
+qplot ( YieldRate,growRate, data = train.sea.30, colour = growClass)
+qplot ( PE,growRate, data = train.sea.30, colour = growClass)
+qplot ( PBR,growRate, data = train.sea.30, colour = growClass)
+qplot ( EPS,growRate, data = train.sea.30, colour = growClass)
+qplot ( DebtRatio,growRate, data = train.sea.30, colour = growClass)
+qplot ( ROE,growRate, data = train.sea.30, colour = growClass)
+qplot ( MonthRate,growRate, data = train.sea.30, colour = growClass)
+qplot ( YearRate,growRate, data = train.sea.30, colour = growClass)
+
+qplot ( YieldRate,growRate, data = train.sea.90, colour = growClass)
+qplot ( PE,growRate, data = train.sea.90, colour = growClass)
+qplot ( PBR,growRate, data = train.sea.90, colour = growClass)
+qplot ( EPS,growRate, data = train.sea.90, colour = growClass)
+qplot ( DebtRatio,growRate, data = train.sea.90, colour = growClass)
+qplot ( ROE,growRate, data = train.sea.90, colour = growClass)
+qplot ( MonthRate,growRate, data = train.sea.90, colour = growClass)
+qplot ( YearRate,growRate, data = train.sea.90, colour = growClass)
+
+
+qplot ( YieldRate,growRate, data = train.sea.180, colour = growClass)
+qplot ( PE,growRate, data = train.sea.180, colour = growClass)
+qplot ( PBR,growRate, data = train.sea.180, colour = growClass)
+qplot ( EPS,growRate, data = train.sea.180, colour = growClass)
+qplot ( DebtRatio,growRate, data = train.sea.180, colour = growClass)
+qplot ( ROE,growRate, data = train.sea.180, colour = growClass)
+qplot ( MonthRate,growRate, data = train.sea.180, colour = growClass)
+qplot ( YearRate,growRate, data = train.sea.180, colour = growClass)
+
 #rminer
 #30days
 model=fit(growClass ~YieldRate+PE+PBR+EPS+DebtRatio+ROE+MonthRate+YearRate,train.sea.filter.30,model='svm')
