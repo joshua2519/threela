@@ -41,7 +41,6 @@
 			計算ma5,ma60是否穿越，籌碼是否有買賣轉換
 		</td>
 	</tr>
-	
 	<tr>
 		<td>
 			cale4Transaction.java
