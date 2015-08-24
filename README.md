@@ -11,6 +11,14 @@
 	</tr>
 	<tr>
 		<td>
+			Chips
+		</td>
+		<td>
+			籌碼相關程式
+		</td>
+	</tr>
+	<tr>
+		<td>
 			ETL
 		</td>
 		<td>
