@@ -1,7 +1,7 @@
 <?php
-    $servername = "10.120.30.4";
-    $username = "threela";
-    $password = "123456";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
     $dbname = "threela";
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error){
@@ -11,8 +11,8 @@
     $stockname =  isset($_GET["enterId"]) ? $_GET["enterId"] : '台泥';
 	$trading = "select (UNIX_TIMESTAMP(t2.Date)+86400)*1000 as TimeStamp, t1.OpenPrice, t1.HighPrice , t1.LowPrice ,
 	t1.ClosePrice,t1.BSRateMA20, t1.MA5 ,t1.MA20 , t1.MA60,t1.UBand,t1.LBand 
-	FROM tradin2bsday20ma as t1 JOIN time as t2 ON t1.TimeId = t2.timeid where t1.StockId like '".$ee."' 
-	or t1.StockId like (select StockId from company where SampleName like '%".$stockname."%')" ;
+	FROM threela.trading as t1 JOIN threela.time as t2 ON t1.TimeId = t2.timeid where t1.StockId = '".$ee."' 
+	or t1.StockId = (select StockId from threela.company where SampleName like '%".$stockname."%')" ;
 	$dailyOfStock = $conn->query($trading);
 	while($row = $dailyOfStock->fetch_assoc()){
 		$jsonData []= array(

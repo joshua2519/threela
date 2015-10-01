@@ -1,15 +1,4 @@
-﻿<?php
-    $con1 = mysql_connect("10.120.30.4","threela","123456");
-
-    if (!$con1) {
-        die('Could not connect: ' . mysql_error());
-    }
-
-    mysql_select_db("threela", $con1);
-
-?>
-
-
+﻿
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -34,16 +23,15 @@
     <script type="text/javascript" src="getStockChart.js"></script>
 </head>
 <?php
-    $servername = "10.120.30.4";
-    $username = "threela";
-    $password = "123456";
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
     $dbname = "threela";
-
     $conn = new mysqli($servername, $username, $password, $dbname);
     if($conn->connect_error){
         die("Connection failed:" . $conn->connect_error);
     }
-
+    mysqli_query($conn,"SET CHARACTER SET UTF8");
 ?>
 <body>
     <div id="wrapper">
@@ -129,27 +117,26 @@
                                 echo "</span>";
                             }else{
                                 echo "<br>請輸入正確的代號<br>";
-                            }
-
-                            $conn->close();
-                            
+                            }                         
                            
-                             
+                            $result->close();
                         ?> 
                         
                          <!-- or c.SampleName like '%".$stockname."%' -->
                         </form>
                         <?php
-                        $result1 = mysql_query("
-                            select round(m.RevMonthGrowthRate,2),round(m.RevYearGrowthRate,2),s.EPS,s.ROE,t.PE 
+                            $sql1 = "select round(m.RevMonthGrowthRate,2),round(m.RevYearGrowthRate,2),s.EPS,s.ROE,t.PE 
                             from month as m join season as s on m.StockId = s.StockId 
                             join trading as t on m.StockId = t.StockId join company as c on m.StockId = c.StockId 
-                            where m.StockId ='".$eid."' and m.Year='2015' and m.month='6' and s.Year='2015' and s.season ='1' and t.TimeId<=now() order by t.TimeId desc limit 0,1;")
+                            where m.StockId ='".$eid."' and m.Year='2015' and m.month='6' and s.Year='2015' and s.season ='1' and t.TimeId<=now() order by t.TimeId desc limit 0,1;";
+                        
+                            $result1 = $conn->query($sql1);
                         ?>    
                     </div>
                     <?PHP
-                        $row1 = mysql_fetch_row($result1);
+                        $row1 = $result1->fetch_row();
                         echo '<span style="font-family:  Microsoft JhengHei;font-weight: bolder;color:orange;">'."營收成長率(月)&nbsp;".$row1[0]."&nbsp;&nbsp;營收成長率(年)&nbsp;".$row1[1]."&nbsp;&nbsp;EPS&nbsp;".$row1[2]."&nbsp;&nbsp;ROE&nbsp;".$row1[3]."&nbsp;&nbsp;PE&nbsp;".$row1[4].'</span>';
+
                     ?>
 
                 <div class="row">
@@ -195,4 +182,7 @@
     <!--<script src="text-coco.js"></script>-->
     
 </body>
+<?php
+$conn->close();
+?>
 </html>
