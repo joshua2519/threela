@@ -140,8 +140,8 @@ public class cale2BSDay20MA3 {
 		 (	select  p_stockid COLLATE utf8_unicode_ci as StockID,p_timeid as TimeId,avg(ClosePrice) as ma5  
 		 from threela.trading as t		 
 		 where t.StockId = p_stockid COLLATE utf8_unicode_ci and t.Timeid in	( 			 
-		    select * from ( 				 
-		        select TimeId from threela.index 				 
+		    select * from (
+		        select TimeId from threela.index
 		         where TimeId between p_beginDay and  p_timeid 
 		         Order by TimeId desc limit 0,5 			) temp 		)  	) as ma5      
 		 ON ma5.StockID = up.StockID and ma5.TimeId = up.TimeId
@@ -216,8 +216,8 @@ public class cale2BSDay20MA3 {
 		//資料庫內的日期格式為: yyyymmdd 。以 20150818 ，則是2015年8月18日
 		int date = Integer.parseInt(year+ zfill(month,2) + zfill(day,2) );  //設定開始執行日期，設定為二個月前的資料
 		// 找二個月前的日期
-		if (month == 1) date = date - 9000;   // 往前推二個月
-		else 			date = date - 200; 
+		if (month == 1) date = date - 8900;  // 往前推一個月 
+		else 			date = date - 200;   // 往前推二個月
 		//date = 20130630;  // 修改開始日期
 		ArrayList StockId = new ArrayList();
 		ArrayList TimeId = new ArrayList();

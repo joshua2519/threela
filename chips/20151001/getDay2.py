@@ -332,7 +332,7 @@ try:
     print yearNow, monthNow, dayNow
     
     # == 大盤 ===================================
-    isRun=getIndex(conn, DByear, DBmonth, yearNow, monthNow , '20150925' )
+    isRun=getIndex(conn, DByear, DBmonth, yearNow, monthNow , DBEndDate )
     if (isRun is 'false' ):
         sys.exit()
     #getIndex(conn, DByear, DBmonth, yearNow, monthNow , DBEndDate ) # 取得大盤資料    

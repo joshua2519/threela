@@ -49,7 +49,7 @@ public class cale4Transaction {
 			monthStr = findStartTimeId+"";
 			monthStr = monthStr.substring(4,6);
 			month = Integer.parseInt(monthStr);
-			endTime = (month == 12) ?   (findStartTimeId +8900) : (findStartTimeId +200 ) ;
+			endTime = (month == 12) ?   (findStartTimeId +8900) : (findStartTimeId +100 ) ;
 			//System.out.println("in month:"+month);
 			//System.out.println("startTime:"+findStartTimeId + "  endTime:"+endTime);
 		}		
@@ -154,7 +154,7 @@ public class cale4Transaction {
 
 	}
 	public static void main(String[] args) {
-		// 當要刪除 transaction 資料時，需要補下的 sql 語法
+		// 當這程式有執行到2014年12月的資料時，需要補下的 sql 語法
 		// 因為下面期間，沒有籌碼資料
 		/*
 		 delete from transaction

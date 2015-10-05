@@ -316,8 +316,8 @@ public class cale3ServeralDayCrossDaysByStockId3 {
 		int month = today.get(Calendar.MONTH)+1;
 		int day = today.get(Calendar.DATE);
 		int beginFindDate = Integer.parseInt(year+ zfill(month,2) + zfill(day,2) ); // 開始執行日期
-		if (month == 1) beginFindDate = beginFindDate - 9000;
-		else 			beginFindDate = beginFindDate - 200;
+		if (month == 1) beginFindDate = beginFindDate - 8900; // 往前推一個月
+		else 			beginFindDate = beginFindDate - 200;  // 往前推二個月
 		ResultSet rsObserveStockId = null;
 		//beginFindDate = 20130715; // 修改開始執行日期
 		//LocalDate birthDate = new LocalDate(DateTime.now() );
@@ -347,7 +347,7 @@ public class cale3ServeralDayCrossDaysByStockId3 {
 			smTime = conn.createStatement();
 			// ??? 在此修改開始要處理的日期資料  //??? 在此修改日期			
 			sql = new StringBuilder(
-				  " SELECT TimeId FROM trading "								   	   	 //  ??? 下面的， buySell 需要換為 BSDay20 ，但是修改程式時， BSDay20有值，所以暫時使用 buySell
+				  " SELECT DISTINCT TimeId as TimeId FROM trading "								   	   	 //  ??? 下面的， buySell 需要換為 BSDay20 ，但是修改程式時， BSDay20有值，所以暫時使用 buySell
 				+ " WHERE  StockId in ('1101', '2330' , '2317' , '1216' , '1301', '2412' , '2801', '2881', '2882') and "
 				+ " TimeId > "+beginFindDate+"  and (PNDays =0  or CRossDays = 0 ) "
 				+ " AND MA60 is not NULL "

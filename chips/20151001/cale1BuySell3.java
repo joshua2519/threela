@@ -138,8 +138,8 @@ public class cale1BuySell3 {
 		int month = today.get(Calendar.MONTH)+1;
 		int day = today.get(Calendar.DATE);
 		int date = Integer.parseInt(year+ zfill(month,2) + zfill(day,2) ); // 設定開始要執行的日期
-		if (month == 1) date = date - 9000; // 往前推二個月
-		else 			date = date - 200;
+		if (month == 1) date = date - 8900; // 往前推一個月
+		else 			date = date - 200;  // 往前推二個月
 		//date = 20140630;  修改開始要執行的日期
 		System.out.println("date:"+date);
         try {
