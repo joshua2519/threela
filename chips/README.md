@@ -11,10 +11,10 @@
 	</tr>
 	<tr>
 		<td>
-			GetDay.java
+			GetDay2.py
 		</td>
 		<td>
-			抓上櫃價格程式
+			抓上市、上櫃、大盤價格程式
 		</td>
 	</tr>
 	<tr>
@@ -22,7 +22,7 @@
 			cale1BuySell3.java
 		</td>
 		<td>
-			計算當天買賣程式
+			計算當天每個股票買賣程式
 		</td>
 	</tr>
 	<tr>
